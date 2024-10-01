@@ -1,0 +1,175 @@
+#include "Player.h"
+
+#include "../../Util/System.h"
+
+#include <DxLib.h>
+#include <math.h>
+
+namespace
+{
+	// サイズ
+	constexpr float kSize = 1.5f;
+
+	// 角度
+	constexpr float kRota = 0.0f;
+
+	// 速度
+	constexpr float kSpeed = 15.0f;
+
+	// 体力
+	constexpr int kHitPoint = 30;
+
+	// 初期位置
+	constexpr Vec2 kStartPos = { System::ScreenSizeXF / 2.0f , System::ScreenSizeYF - 300.0f };
+
+	// 初期機体用
+	Airframe kAirframe{ kStartPos , kSize , kRota ,kHitPoint };
+
+	// 判定の大きさ
+	constexpr float kLeftXSize  = 35;
+	constexpr float kLeftYSize  = 35;
+	constexpr float kRightXSize = 35;
+	constexpr float kRightYSize = 50;
+}
+
+Player::Player():
+	m_hGraph(-1),
+	m_airframe(kAirframe),
+	m_collRect({ 0.0f,0.0f ,0.0f,0.0f }),
+	m_shootingNum(0)
+{
+}
+
+Player::~Player()
+{
+}
+
+void Player::Init()
+{
+	// メモリ確保
+	m_hGraph = LoadGraph("Data/Image/Player/Player.png");
+}
+
+void Player::End()
+{
+	// メモリ解放
+	DeleteGraph(m_hGraph);
+}
+
+void Player::Update()
+{
+	// 入力
+	Input();
+	// 画面外処理
+	OutSide();
+
+	// 判定用位置座標更新
+	CollRectUpdate();
+}
+
+void Player::Draw()
+{
+	// プレイヤーの描画
+	DrawRotaGraphF(m_airframe.pos.x, m_airframe.pos.y, m_airframe.size, m_airframe.rota, m_hGraph, true);
+
+#if _DEBUG
+	// 判定用デバッグ描画
+	DrawBox(m_collRect.left.x, m_collRect.left.y, m_collRect.right.x, m_collRect.right.y, 0xff0000, false);
+#endif
+}
+
+Vec2 Player::GetPos() const
+{
+	return m_airframe.pos;
+}
+
+Rect Player::GetCollData()const
+{
+	return m_collRect;
+}
+
+int Player::GetShootingNum()const
+{
+	return m_shootingNum;
+}
+
+void Player::Input()
+{
+	// ベクトル
+	Vec2 vec = {0.0f,0.0f};
+
+	// 移動
+	if (CheckHitKey(KEY_INPUT_W) || CheckHitKey(KEY_INPUT_UP))
+	{
+		vec.y += -1.0f;
+	}
+	if (CheckHitKey(KEY_INPUT_A) || CheckHitKey(KEY_INPUT_LEFT))
+	{
+		vec.x += -1.0f;
+	}
+	if (CheckHitKey(KEY_INPUT_S) || CheckHitKey(KEY_INPUT_DOWN))
+	{
+		vec.y += 1.0f;
+	}
+	if (CheckHitKey(KEY_INPUT_D) || CheckHitKey(KEY_INPUT_RIGHT))
+	{
+		vec.x += 1.0f;
+	}
+
+	// ショット
+	if (CheckHitKey(KEY_INPUT_SPACE) || GetMouseInput() & MOUSE_INPUT_LEFT)
+	{
+		// 発射する数を指定
+		m_shootingNum = 1;
+	}
+	else
+	{
+		m_shootingNum = 0;
+	}
+
+	// ベクトルの長さを計算
+	float length = sqrt(vec.x * vec.x + vec.y * vec.y);
+
+	// 長さが0でない場合のみノーマライズ
+	if (length > 0.0f)
+	{
+		vec.x /= length;
+		vec.y /= length;
+	}
+
+	// 位置を変更
+	m_airframe.pos.x += vec.x * kSpeed;
+	m_airframe.pos.y += vec.y * kSpeed;
+}
+
+void Player::OutSide()
+{
+	// 左
+	if (m_airframe.pos.x < 0.0f)
+	{
+		m_airframe.pos.x = 0.0f;
+	}
+	// 右
+	if (m_airframe.pos.x > System::ScreenSizeXF)
+	{
+		m_airframe.pos.x = System::ScreenSizeXF;
+	}
+	// 上
+	if (m_airframe.pos.y < 0.0f)
+	{
+		m_airframe.pos.y = 0.0f;
+	}
+	// 下
+	if (m_airframe.pos.y > System::ScreenSizeYF)
+	{
+		m_airframe.pos.y = System::ScreenSizeYF;
+	}
+}
+
+void Player::CollRectUpdate()
+{
+	m_collRect.left.x  = m_airframe.pos.x - kLeftXSize;
+	m_collRect.left.y  = m_airframe.pos.y - kLeftYSize;
+	m_collRect.right.x = m_airframe.pos.x + kRightXSize;
+	m_collRect.right.y = m_airframe.pos.y + kRightYSize;
+}
