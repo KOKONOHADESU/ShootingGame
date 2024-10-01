@@ -11,10 +11,10 @@ namespace
 	constexpr float kRota = 0.0f;
 
 	// 速度
-	constexpr float kSpeed = 15.0f;
+	constexpr float kSpeed = 60.0f;
 
 	// 体力
-	constexpr int kHitPoint = 100000;
+	constexpr int kHitPoint = 1;
 
 	// ダメージ
 	constexpr int kDamage = 1;
@@ -56,7 +56,7 @@ ShotNomal::~ShotNomal()
 void ShotNomal::Update()
 {
 	// 移動処理
-	m_bullet.pos.y -= kSpeed;
+	m_bullet.pos.y -= kSpeed + static_cast<float>(GetRand(kSpeed / 2.0f));
 
 	// 判定用座標更新
 	CollRectUpdate();

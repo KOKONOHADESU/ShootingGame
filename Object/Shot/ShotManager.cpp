@@ -78,5 +78,5 @@ std::list<ShotNomal*>& ShotManager::GetShotData()
 void ShotManager::SetInitShot(Vec2 startPos)
 {
 	// ƒVƒ‡ƒbƒg‚Ì‰Šú‰»
-	m_pShot.push_back(new ShotNomal(startPos));
+	m_pShot.push_back(new ShotNomal(startPos));	
 }

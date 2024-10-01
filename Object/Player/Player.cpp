@@ -8,7 +8,7 @@
 namespace
 {
 	// サイズ
-	constexpr float kSize = 1.5f;
+	constexpr float kSize = 3.0f;
 
 	// 角度
 	constexpr float kRota = 0.0f;
@@ -47,7 +47,7 @@ Player::~Player()
 void Player::Init()
 {
 	// メモリ確保
-	m_hGraph = LoadGraph("Data/Image/Player/Player.png");
+	m_hGraph       = LoadGraph("Data/Image/Player/Player1.png");
 }
 
 void Player::End()

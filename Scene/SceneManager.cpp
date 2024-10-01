@@ -98,7 +98,7 @@ void SceneManager::Draw()
 {
 	// •`‰æˆ—
 	m_pMap->Draw();
-	m_pPlayer->Draw();
-	m_pEnemyManager->Draw();
 	m_pShotManager->Draw();
+	m_pEnemyManager->Draw();
+	m_pPlayer->Draw();
 }
