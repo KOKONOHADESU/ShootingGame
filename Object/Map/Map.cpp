@@ -37,9 +37,9 @@ void Map::Init()
 	m_hBg[BGType::SIDERIGHT] = LoadGraph("Data/Image/Map/bg3.png");
 
 	// 画像サイズの取得
-	GetGraphSizeF(m_hBg[BGType::ALL], &m_bgSize[BGType::ALL].x, &m_bgSize[BGType::ALL].y);
-	GetGraphSizeF(m_hBg[BGType::MID], &m_bgSize[BGType::MID].x, &m_bgSize[BGType::MID].y);
-	GetGraphSizeF(m_hBg[BGType::SIDELEFT], &m_bgSize[BGType::SIDELEFT].x, &m_bgSize[BGType::SIDELEFT].y);
+	GetGraphSizeF(m_hBg[BGType::ALL],       &m_bgSize[BGType::ALL].x,       &m_bgSize[BGType::ALL].y);
+	GetGraphSizeF(m_hBg[BGType::MID],       &m_bgSize[BGType::MID].x,       &m_bgSize[BGType::MID].y);
+	GetGraphSizeF(m_hBg[BGType::SIDELEFT],  &m_bgSize[BGType::SIDELEFT].x,  &m_bgSize[BGType::SIDELEFT].y);
 	GetGraphSizeF(m_hBg[BGType::SIDERIGHT], &m_bgSize[BGType::SIDERIGHT].x, &m_bgSize[BGType::SIDERIGHT].y);
 
 	// 画像サイズの調整

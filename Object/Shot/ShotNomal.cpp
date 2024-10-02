@@ -31,8 +31,8 @@ namespace
 	const char* const kPathName = "Data/Image/Shot/shot.png";
 }
 
-ShotNomal::ShotNomal(Vec2 startPos):
-	ShotBase::ShotBase(startPos)
+ShotNomal::ShotNomal(Vec2 startPos, std::vector<int> handle):
+	ShotBase::ShotBase(startPos, handle)
 {
 	// 弾の初期化
 	m_bullet.pos      = startPos;
@@ -46,9 +46,6 @@ ShotNomal::ShotNomal(Vec2 startPos):
 	m_collSize.left.y  = kLeftYSize;
 	m_collSize.right.x = kRightXSize;
 	m_collSize.right.y = kRightYSize;
-
-	// 初期化
-	ShotBase::Init(m_bullet.pos, kPathName);
 }
 
 ShotNomal::~ShotNomal()
@@ -58,7 +55,7 @@ ShotNomal::~ShotNomal()
 void ShotNomal::Update()
 {
 	// 移動処理
-	m_bullet.pos.y -= kSpeed + static_cast<float>(MTRandom::GetInstance()->GetMTRand(0, kSpeed / 2));
+	m_bullet.pos.y -= kSpeed + static_cast<float>(MTRandom::GetInstance()->GetMTRand(0, static_cast<int>(kSpeed) / 2));
 
 	// 判定用座標更新
 	CollRectUpdate();

@@ -98,7 +98,7 @@ void EnemyManager::NomalUpdate()
 	if (m_normalEnemyFrameSpawnCount == kNomalEnemySpawnFrameMax)
 	{
 		// ê∂ê¨
-		NomalSpawn();
+//		NomalSpawn();
 		m_normalEnemyFrameSpawnCount = 0;
 	}
 	else

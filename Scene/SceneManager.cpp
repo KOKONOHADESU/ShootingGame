@@ -2,8 +2,8 @@
 
 #include "../Object/Map/Map.h"
 #include "../Object/Player/Player.h"
-#include "../Object/Shot/ShotNomal.h"
 #include "../Object/Shot/ShotManager.h"
+#include "../Object/Shot/ShotBase.h"
 #include "../Object/Enemy/EnemyManager.h"
 #include "../Object/Enemy/EnemyBase.h"
 
@@ -72,7 +72,7 @@ void SceneManager::Update()
 	}
 
 	// プレイヤーからショットリストを取得
-	std::list<ShotNomal*>& shots = m_pShotManager->GetShotData();
+	std::list<ShotBase*>& shots = m_pShotManager->GetShotData();
 
 	// エネミーマネージャーからエネミーを取得
 	std::list<EnemyBase*>& enemies = m_pEnemyManager->GetEnemyData();

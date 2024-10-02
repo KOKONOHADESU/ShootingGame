@@ -8,43 +8,35 @@ namespace
 	constexpr int kMyHitDamage = 1;
 }
 
-ShotBase::ShotBase(Vec2 startPos) :
-	m_hGraph(-1),
+ShotBase::ShotBase(Vec2 startPos, std::vector<int> handle) :
+	m_graphNum(0),
 	m_collRect({ 0.0f,0.0f ,0.0f,0.0f }),
 	m_collSize({ 0.0f,0.0f ,0.0f,0.0f }),
 	m_isEnable(true)
 {
-	// 初期位置
+	// スタート位置のセット
 	m_bullet.pos = startPos;
+
+	// ハンドルのコピー
+	m_handle = handle;
 }
 
 ShotBase::~ShotBase()
 {
 }
 
-void ShotBase::Init(Vec2 pos, const char* pathName)
-{
-	// スタート位置のセット
-	m_bullet.pos = pos;
-
-	// 画像の読み込み
-	m_hGraph = LoadGraph(pathName);
-}
-
 void ShotBase::End()
 {
-	// 解放処理
-	DeleteGraph(m_hGraph);
 }
 
 void ShotBase::Draw()
 {
 	// 描画処理
-	DrawRotaGraphF(m_bullet.pos.x, m_bullet.pos.y, m_bullet.size, m_bullet.rota, m_hGraph, true);
+	DrawRotaGraphF(m_bullet.pos.x, m_bullet.pos.y, m_bullet.size, m_bullet.rota, m_handle[m_graphNum], true);
 
 #if _DEBUG
 	// 判定用デバッグ描画
-	DrawBox(m_collRect.left.x, m_collRect.left.y, m_collRect.right.x, m_collRect.right.y, 0xff0000, false);
+	DrawBoxAA(m_collRect.left.x, m_collRect.left.y, m_collRect.right.x, m_collRect.right.y, 0xff0000, false);
 #endif
 }
 
@@ -103,4 +95,3 @@ void ShotBase::CheckEnablePos()
 		m_isEnable = false;
 	}
 }
-

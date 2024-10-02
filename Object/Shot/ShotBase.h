@@ -4,13 +4,14 @@
 #include "../../Util/Rect.h"
 #include "../../Util/Bullet.h"
 
+#include <vector>
+
 class ShotBase
 {
 public:
-	ShotBase(Vec2 startPos);
+	ShotBase(Vec2 startPos ,std::vector<int> handle);
 	virtual~ShotBase();
 
-	virtual void Init(Vec2 pos, const char* pathName);
 	virtual void End();
 	virtual void Update() = 0;
 	virtual void Draw();
@@ -46,7 +47,10 @@ protected:
 
 protected:
 	// 画像ハンドル
-	int m_hGraph;
+	std::vector<int> m_handle;
+
+	// 画像再生用画像の数
+	int m_graphNum;
 
 	// 弾データ
 	Bullet m_bullet;

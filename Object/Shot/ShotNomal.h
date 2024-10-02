@@ -2,13 +2,10 @@
 
 #include "ShotBase.h"
 
-#include "../../Util/Vec2.h"
-#include "../../Util/Rect.h"
-
 class ShotNomal : public ShotBase
 {
 public:
-	ShotNomal(Vec2 startPos);
+	ShotNomal(Vec2 startPos, std::vector<int> handle);
 	~ShotNomal();
 
 	void Update()override;

@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="Object\Shot\ShotManager.cpp" />
     <ClCompile Include="Object\Shot\ShotBase.cpp" />
+    <ClCompile Include="Object\Shot\ShotMissile.cpp" />
     <ClCompile Include="Util\Collision2D.cpp" />
     <ClCompile Include="Object\Enemy\EnemyNormal.cpp" />
     <ClCompile Include="Object\Enemy\EnemyBase.cpp" />
@@ -160,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="Object\Shot\ShotManager.h" />
     <ClInclude Include="Object\Shot\ShotBase.h" />
+    <ClInclude Include="Object\Shot\ShotMissile.h" />
     <ClInclude Include="Util\Bullet.h" />
     <ClInclude Include="Util\Collision2D.h" />
     <ClInclude Include="Util\Airframe.h" />

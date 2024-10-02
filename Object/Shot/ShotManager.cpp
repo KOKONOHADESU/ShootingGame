@@ -1,6 +1,24 @@
 #include "ShotManager.h"
 
 #include "ShotNomal.h"
+#include "ShotMissile.h"
+
+#include <DxLib.h>
+#include <string>
+
+namespace
+{
+	const char* const kShotNomalpath = "Data/Image/Shot/shot.png";
+
+	const char* const kShotMissilepath = "Data/Image/Player/Shoot/Shoot1.png";
+
+	// ファイルパス
+	std::vector<std::string>kGraphFilePath =
+	{
+		"Data/Image/Shot/shot.png",			// ショット
+		"Data/Image/Player/Shoot/Shoot1.png"// ミサイル
+	};
+}
 
 ShotManager::ShotManager()
 {
@@ -12,6 +30,12 @@ ShotManager::~ShotManager()
 
 void ShotManager::Init()
 {
+	// 読み込みファイルの数
+	m_handle.resize(static_cast<int>(kGraphFilePath.size()));
+	for (int i = 0; i < static_cast<int>(kGraphFilePath.size()); i++)
+	{
+		m_handle[i].push_back(LoadGraph(kGraphFilePath[i].c_str()));
+	}	
 }
 
 void ShotManager::End()
@@ -23,6 +47,14 @@ void ShotManager::End()
 		(*it)->End();
 		delete* it;
 		(*it) = nullptr;
+	}
+
+	for (int i = 0; i < static_cast<int>(kGraphFilePath.size()); i++)
+	{
+		for (int j = 0; j < m_handle[i].size(); j++)
+		{
+			DeleteGraph(m_handle[i][j]);
+		}
 	}
 }
 
@@ -70,7 +102,7 @@ void ShotManager::CheckEnable()
 	}
 }
 
-std::list<ShotNomal*>& ShotManager::GetShotData()
+std::list<ShotBase*>& ShotManager::GetShotData()
 {
 	return m_pShot;
 }
@@ -78,5 +110,5 @@ std::list<ShotNomal*>& ShotManager::GetShotData()
 void ShotManager::SetInitShot(Vec2 startPos)
 {
 	// ショットの初期化
-	m_pShot.push_back(new ShotNomal(startPos));	
+	m_pShot.push_back(new ShotNomal(startPos, m_handle[0]));
 }
