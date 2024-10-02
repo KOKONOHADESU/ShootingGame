@@ -3,21 +3,19 @@
 #include "ShotNomal.h"
 #include "ShotMissile.h"
 
+#include "../../Util/GraphicSprite.h"
+#include "../../Util/ShotType.h"
+
 #include <DxLib.h>
 #include <string>
 
 namespace
 {
+	// 画像ファイルパス
+	// ノーマルショット
 	const char* const kShotNomalpath = "Data/Image/Shot/shot.png";
-
+	// ミサイルショット
 	const char* const kShotMissilepath = "Data/Image/Player/Shoot/Shoot1.png";
-
-	// ファイルパス
-	std::vector<std::string>kGraphFilePath =
-	{
-		"Data/Image/Shot/shot.png",			// ショット
-		"Data/Image/Player/Shoot/Shoot1.png"// ミサイル
-	};
 }
 
 ShotManager::ShotManager()
@@ -31,10 +29,10 @@ ShotManager::~ShotManager()
 void ShotManager::Init()
 {
 	// 画像タイプを指定
-	InitType(m_handle, 2);
+	GraphicSprite::InitType(m_handle, ShotType::MAX);
 	// 画像タイプ別画像分割数を指定
-	InitGraphic(m_handle, 0, kShotNomalpath, 1, 1);
-	InitGraphic(m_handle, 1, kShotMissilepath, 3, 1);
+	GraphicSprite::InitGraphic(m_handle, ShotType::NORMAL, kShotNomalpath, 1, 1);
+	GraphicSprite::InitGraphic(m_handle, ShotType::MISSILE, kShotMissilepath, 3, 1);
 }
 
 void ShotManager::End()
@@ -48,7 +46,7 @@ void ShotManager::End()
 		(*it) = nullptr;
 	}
 
-	for (int i = 0; i < static_cast<int>(kGraphFilePath.size()); i++)
+	for (int i = 0; i < static_cast<int>(ShotType::MAX); i++)
 	{
 		for (int j = 0; j < m_handle[i].size(); j++)
 		{
@@ -75,26 +73,6 @@ void ShotManager::Draw()
 	for (auto& shot : m_pShot)
 	{
 		shot->Draw();
-	}
-}
-
-void ShotManager::InitType(std::vector<std::vector<int>>& handle, int shotTypeNum)
-{
-	// ショットの種類分の配列を生成
-	handle.resize(shotTypeNum);
-}
-
-void ShotManager::InitGraphic(std::vector<std::vector<int>>& handle, int shotType, const char* path, int graphXNum, int graphYNum)
-{
-	if (graphXNum * graphYNum == 1)
-	{
-		handle[shotType].push_back(LoadGraph(path));
-	}
-	else
-	{
-		float x = 0.0f;
-		float y = 0.0f;
-	//	GetGraphSizeF(handle[shotType], &x, &y)
 	}
 }
 
@@ -126,8 +104,23 @@ std::list<ShotBase*>& ShotManager::GetShotData()
 	return m_pShot;
 }
 
-void ShotManager::SetInitShot(Vec2 startPos)
+void ShotManager::CreateShotNormal(Vec2 startPos)
 {
 	// ショットの初期化
-	m_pShot.push_back(new ShotNomal(startPos, m_handle[0]));
+	m_pShot.push_back(new ShotNomal(startPos, m_handle[ShotType::NORMAL]));
+}
+
+void ShotManager::CreateShotMissile(Vec2 startPos)
+{
+	Vec2 pos = startPos;
+
+	pos.x = startPos.x + 30.0f;
+
+	// ショットの初期化
+	m_pShot.push_back(new ShotMissile(pos, m_handle[ShotType::MISSILE]));
+
+	pos.x = startPos.x - 30.0f;
+
+	// ショットの初期化
+	m_pShot.push_back(new ShotMissile(pos, m_handle[ShotType::MISSILE]));
 }

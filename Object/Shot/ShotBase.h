@@ -9,7 +9,7 @@
 class ShotBase
 {
 public:
-	ShotBase(Vec2 startPos ,std::vector<int> handle);
+	ShotBase(Vec2 startPos ,const std::vector<int>& handle);
 	virtual~ShotBase();
 
 	virtual void End();

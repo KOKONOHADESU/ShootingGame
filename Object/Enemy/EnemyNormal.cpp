@@ -2,9 +2,6 @@
 
 namespace
 {
-	// ファイルパス
-	const char* const kPathName = "Data/Image/Enemy/enemy1.png";
-
 	// 移動速度
 	constexpr float kSpeed = 5.0f;
 
@@ -18,14 +15,15 @@ namespace
 	constexpr float kRightYSize = 35;
 }
 
-EnemyNormal::EnemyNormal(Airframe airframe):
-	EnemyBase::EnemyBase(airframe)
+EnemyNormal::EnemyNormal(Airframe airframe, const std::vector<int>& handle):
+	EnemyBase::EnemyBase(airframe, handle)
 {
 	// 体力の初期化
 	m_airframe.hitPoint = kHitPointMax;
 
-	// 初期化
-	EnemyBase::Init(kPathName);
+	// 判定用
+	Rect collSize{ kLeftXSize ,kLeftYSize ,kRightXSize ,kRightYSize };
+	CollRectUpdate(collSize);
 }
 
 EnemyNormal::~EnemyNormal()

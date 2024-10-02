@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Util\GraphicSprite.cpp" />
     <ClCompile Include="Object\Shot\ShotManager.cpp" />
     <ClCompile Include="Object\Shot\ShotBase.cpp" />
     <ClCompile Include="Object\Shot\ShotMissile.cpp" />
@@ -159,6 +160,8 @@
     <ClCompile Include="Util\SingletonBase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Util\EnemyType.h" />
+    <ClInclude Include="Util\GraphicSprite.h" />
     <ClInclude Include="Object\Shot\ShotManager.h" />
     <ClInclude Include="Object\Shot\ShotBase.h" />
     <ClInclude Include="Object\Shot\ShotMissile.h" />
@@ -175,6 +178,7 @@
     <ClInclude Include="Util\DxLibSystem.h" />
     <ClInclude Include="Util\MTRandom.h" />
     <ClInclude Include="Util\Rect.h" />
+    <ClInclude Include="Util\ShotType.h" />
     <ClInclude Include="Util\SingletonBase.h" />
     <ClInclude Include="Util\Vec2.h" />
     <ClInclude Include="Util\System.h" />

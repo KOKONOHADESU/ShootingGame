@@ -8,7 +8,7 @@ namespace
 	constexpr int kMyHitDamage = 1;
 }
 
-ShotBase::ShotBase(Vec2 startPos, std::vector<int> handle) :
+ShotBase::ShotBase(Vec2 startPos, const std::vector<int>& handle) :
 	m_graphNum(0),
 	m_collRect({ 0.0f,0.0f ,0.0f,0.0f }),
 	m_collSize({ 0.0f,0.0f ,0.0f,0.0f }),
@@ -27,6 +27,7 @@ ShotBase::~ShotBase()
 
 void ShotBase::End()
 {
+	
 }
 
 void ShotBase::Draw()

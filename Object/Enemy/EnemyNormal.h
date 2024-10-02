@@ -4,7 +4,7 @@
 class EnemyNormal : public EnemyBase
 {
 public:
-	EnemyNormal(Airframe airframe);
+	EnemyNormal(Airframe airframe, const std::vector<int>& handle);
 	virtual ~EnemyNormal();
 
 	void StartUpdate()override;

@@ -4,6 +4,8 @@
 #include "../../Util/Airframe.h"
 #include "../../Util/Rect.h"
 
+#include <vector>
+
 namespace
 {
 	// 死亡演出用画像の数
@@ -13,7 +15,7 @@ namespace
 class EnemyBase
 {
 public:
-	EnemyBase(Airframe airframe);
+	EnemyBase(Airframe airframe, const std::vector<int>& handle);
 	virtual ~EnemyBase();
 protected:
 	virtual void Init(const char* graphPath);
@@ -51,7 +53,7 @@ protected:
 	void ExplosionUpdate();
 protected:
 	// 画像ハンドル
-	int m_hGraph;
+	std::vector<int> m_handle;
 
 	// 死亡演出用ハンドル
 	int m_hExplosion[kExplosionGraphAllNum];

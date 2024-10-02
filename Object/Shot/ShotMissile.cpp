@@ -27,7 +27,7 @@ namespace
 }
 
 
-ShotMissile::ShotMissile(Vec2 startPos, std::vector<int> handle) :
+ShotMissile::ShotMissile(Vec2 startPos, const std::vector<int>& handle) :
 	ShotBase::ShotBase(startPos, handle)
 {
 	// ’e‚Ì‰Šú‰»

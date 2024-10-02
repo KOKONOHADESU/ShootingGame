@@ -31,7 +31,7 @@ namespace
 	const char* const kPathName = "Data/Image/Shot/shot.png";
 }
 
-ShotNomal::ShotNomal(Vec2 startPos, std::vector<int> handle):
+ShotNomal::ShotNomal(Vec2 startPos, const std::vector<int>& handle):
 	ShotBase::ShotBase(startPos, handle)
 {
 	// ’e‚Ì‰Šú‰»

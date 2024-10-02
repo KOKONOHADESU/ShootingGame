@@ -1,6 +1,7 @@
 #pragma once
 
 #include <list>
+#include <vector>
 
 class EnemyBase;
 // エネミーの管理
@@ -34,6 +35,9 @@ private:
 
 	// ノーマルエネミー生成用フレームカウント
 	int m_normalEnemyFrameSpawnCount;
+
+	// 画像ハンドル
+	std::vector<std::vector<int>> m_handle;
 
 };
 

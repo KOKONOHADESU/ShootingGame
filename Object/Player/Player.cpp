@@ -47,7 +47,11 @@ Player::~Player()
 void Player::Init()
 {
 	// メモリ確保
-	m_hGraph       = LoadGraph("Data/Image/Player/Player1.png");
+	m_hGraph = LoadGraph("Data/Image/Player/Player1.png");
+
+	// 判定用位置座標更新
+	CollRectUpdate();
+
 }
 
 void Player::End()
@@ -60,6 +64,7 @@ void Player::Update()
 {
 	// 入力
 	Input();
+
 	// 画面外処理
 	OutSide();
 
@@ -128,7 +133,7 @@ void Player::Input()
 	}
 
 	// ベクトルの長さを計算
-	float length = sqrt(vec.x * vec.x + vec.y * vec.y);
+	const float length = sqrt(vec.x * vec.x + vec.y * vec.y);
 
 	// 長さが0でない場合のみノーマライズ
 	if (length > 0.0f)

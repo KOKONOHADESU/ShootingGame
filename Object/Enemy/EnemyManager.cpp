@@ -4,6 +4,8 @@
 #include "../../Util/Airframe.h"
 #include "../../Util/DxLibSystem.h"
 #include "../../Util/MTRandom.h"
+#include "../../Util/GraphicSprite.h"
+#include "../../Util/EnemyType.h"
 
 #include <DxLib.h>
 
@@ -11,6 +13,9 @@ namespace
 {
 //	constexpr int kNomalEnemySpawnFrameMax = 60 * 1;
 	constexpr int kNomalEnemySpawnFrameMax = 1;
+
+	// ファイルパス
+	const char* const kEnemyNormalpath = "Data/Image/Enemy/enemy1.png";
 }
 
 EnemyManager::EnemyManager():
@@ -24,7 +29,10 @@ EnemyManager::~EnemyManager()
 
 void EnemyManager::Init()
 {
-
+	// 画像タイプを指定
+	GraphicSprite::InitType(m_handle, EnemyType::MAX);
+	// 画像タイプ別画像分割数を指定
+	GraphicSprite::InitGraphic(m_handle, EnemyType::NORMAL, kEnemyNormalpath, 1, 1);
 }
 
 void EnemyManager::End()
@@ -36,6 +44,14 @@ void EnemyManager::End()
 		(*it)->End();
 		delete* it;
 		(*it) = nullptr;
+	}
+
+	for (int i = 0; i < static_cast<int>(EnemyType::MAX); i++)
+	{
+		for (int j = 0; j < m_handle[i].size(); j++)
+		{
+			DeleteGraph(m_handle[i][j]);
+		}
 	}
 }
 
@@ -98,7 +114,7 @@ void EnemyManager::NomalUpdate()
 	if (m_normalEnemyFrameSpawnCount == kNomalEnemySpawnFrameMax)
 	{
 		// 生成
-//		NomalSpawn();
+		NomalSpawn();
 		m_normalEnemyFrameSpawnCount = 0;
 	}
 	else
@@ -117,5 +133,5 @@ void EnemyManager::NomalSpawn()
 	data.size = 1.0f;
 
 	// 機体の追加
-	m_pEnemy.push_back(new EnemyNormal(data));
+	m_pEnemy.push_back(new EnemyNormal(data,m_handle[EnemyType::NORMAL]));
 }

@@ -22,8 +22,7 @@ namespace
 	constexpr int kExplosionChangeFrameMax = 1;
 }
 
-EnemyBase::EnemyBase(Airframe airframe):
-	m_hGraph(-1),
+EnemyBase::EnemyBase(Airframe airframe, const std::vector<int>& handle):
 	m_explosionGraphChangeFrameCount(-1),
 	m_explosionGraphChangeNum(-1),
 	m_airframe(airframe),
@@ -38,6 +37,12 @@ EnemyBase::EnemyBase(Airframe airframe):
 	{
 		m_hExplosion[i] = -1;
 	}
+
+	// ハンドルの読み込み
+	m_handle = handle;
+
+	// 死亡演出画像の読み込み
+	Init(kExplosionPath);
 }
 
 EnemyBase::~EnemyBase()
@@ -46,9 +51,6 @@ EnemyBase::~EnemyBase()
 
 void EnemyBase::Init(const char* graphPath)
 {
-	// 画像の読み込み
-	m_hGraph = LoadGraph(graphPath);
-
 	// 画像ファイルのメモリへの分割読みこみ
 	LoadDivGraph(kExplosionPath, kExplosionGraphXNum * kExplosionGraphYNum,
 		kExplosionGraphXNum, kExplosionGraphYNum,
@@ -58,8 +60,6 @@ void EnemyBase::Init(const char* graphPath)
 void EnemyBase::End()
 {
 	// メモリ解放
-	DeleteGraph(m_hGraph);
-
 	for (int i = 0; i < kExplosionGraphXNum * kExplosionGraphYNum; i++)
 	{
 		DeleteGraph(m_hExplosion[i]);
@@ -82,7 +82,7 @@ void EnemyBase::Draw()
 			m_airframe.pos.y,
 			m_airframe.size,
 			m_airframe.rota,
-			m_hGraph, true);
+			m_handle[0], true);
 	}
 	else	
 	{

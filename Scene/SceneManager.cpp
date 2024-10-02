@@ -68,7 +68,8 @@ void SceneManager::Update()
 	// 1つ以上の弾を発射していた場合弾を生成
 	if (m_pPlayer->GetShootingNum() >= 1)
 	{
-		m_pShotManager->SetInitShot(m_pPlayer->GetPos());
+	//	m_pShotManager->CreateShotNormal(m_pPlayer->GetPos());
+		m_pShotManager->CreateShotMissile(m_pPlayer->GetPos());
 	}
 
 	// プレイヤーからショットリストを取得
