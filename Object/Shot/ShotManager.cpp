@@ -30,12 +30,11 @@ ShotManager::~ShotManager()
 
 void ShotManager::Init()
 {
-	// 読み込みファイルの数
-	m_handle.resize(static_cast<int>(kGraphFilePath.size()));
-	for (int i = 0; i < static_cast<int>(kGraphFilePath.size()); i++)
-	{
-		m_handle[i].push_back(LoadGraph(kGraphFilePath[i].c_str()));
-	}	
+	// 画像タイプを指定
+	InitType(m_handle, 2);
+	// 画像タイプ別画像分割数を指定
+	InitGraphic(m_handle, 0, kShotNomalpath, 1, 1);
+	InitGraphic(m_handle, 1, kShotMissilepath, 3, 1);
 }
 
 void ShotManager::End()
@@ -76,6 +75,26 @@ void ShotManager::Draw()
 	for (auto& shot : m_pShot)
 	{
 		shot->Draw();
+	}
+}
+
+void ShotManager::InitType(std::vector<std::vector<int>>& handle, int shotTypeNum)
+{
+	// ショットの種類分の配列を生成
+	handle.resize(shotTypeNum);
+}
+
+void ShotManager::InitGraphic(std::vector<std::vector<int>>& handle, int shotType, const char* path, int graphXNum, int graphYNum)
+{
+	if (graphXNum * graphYNum == 1)
+	{
+		handle[shotType].push_back(LoadGraph(path));
+	}
+	else
+	{
+		float x = 0.0f;
+		float y = 0.0f;
+	//	GetGraphSizeF(handle[shotType], &x, &y)
 	}
 }
 
