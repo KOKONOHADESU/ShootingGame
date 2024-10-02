@@ -2,7 +2,8 @@
 #include "EnemyNormal.h"
 
 #include "../../Util/Airframe.h"
-#include "../../Util/System.h"
+#include "../../Util/DxLibSystem.h"
+#include "../../Util/MTRandom.h"
 
 #include <DxLib.h>
 
@@ -111,7 +112,7 @@ void EnemyManager::NomalSpawn()
 {
 	// ã@ëÃÇÃèâä˙âª
 	Airframe data{};
-	data.pos  = Vec2{ static_cast<float>(GetRand(System::ScreenSizeXF)),0.0f };
+	data.pos = Vec2{ static_cast<float>(MTRandom::GetInstance()->GetMTRand(0,DxLibSystem::kScreenWidth)),0.0f };
 	data.rota = 0.0f;
 	data.size = 1.0f;
 

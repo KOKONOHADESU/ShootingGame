@@ -1,6 +1,6 @@
 #include "EnemyBase.h"
 
-#include "../../Util/System.h"
+#include "../../Util/DxLibSystem.h"
 
 #include <DxLib.h>
 
@@ -137,7 +137,7 @@ void EnemyBase::CheckHitPoint()
 void EnemyBase::CheckEnablePos()
 {
 	// ‰æ–Êã‚É‚Å‚é‚Æ‘¶Ý‚ðÁ‚·
-	if (m_airframe.pos.y > System::ScreenSizeYF)
+	if (m_airframe.pos.y > DxLibSystem::kScreenHeightF)
 	{
 		m_isEnable = false;
 	}
