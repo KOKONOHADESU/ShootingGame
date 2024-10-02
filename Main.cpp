@@ -1,7 +1,8 @@
 
 #include "Scene/SceneManager.h"
 
-#include "Util/System.h"
+#include "Util/DxLibSystem.h"
+#include "Util/MTRandom.h"
 
 #include <DxLib.h>
 #include <crtdbg.h>
@@ -15,16 +16,16 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 #endif
 
     // windowモード設定
-    ChangeWindowMode(true);
+    ChangeWindowMode(DxLibSystem::kWindowMode);
 
     // ウインドウ名設定
-    SetMainWindowText("Shooting");
+    SetMainWindowText(DxLibSystem::kTitleText);
 
     // 画面サイズの設定
-    SetGraphMode(System::ScreenSizeX, System::ScreenSizeY, 32);
+    SetGraphMode(DxLibSystem::kScreenWidth, DxLibSystem::kScreenHeight, DxLibSystem::kColorDepth);
 
     // ログ出力を行うか否か
-    SetOutApplicationLogValidFlag(false);
+    SetOutApplicationLogValidFlag(DxLibSystem::kCreateLogText);
 
     // ダブルバッファモード
     SetDrawScreen(DX_SCREEN_BACK);
@@ -41,6 +42,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 
     // 初期化
     pScene->Init();
+
+    // 乱数生成クラスのインスタンスを生成
+    MTRandom::GetInstance();
 
     while (ProcessMessage() == 0)
     {
@@ -73,6 +77,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
     pScene->End();
     delete pScene;
     pScene = nullptr;
+
+    MTRandom::GetInstance()->Destroy();
 
     // ＤＸライブラリ使用の終了処理
     DxLib_End();

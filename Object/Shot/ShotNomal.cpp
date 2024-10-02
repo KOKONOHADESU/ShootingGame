@@ -1,5 +1,7 @@
 #include "ShotNomal.h"
 
+#include "../../Util/MTRandom.h"
+
 #include <DxLib.h>
 
 namespace
@@ -56,7 +58,7 @@ ShotNomal::~ShotNomal()
 void ShotNomal::Update()
 {
 	// 移動処理
-	m_bullet.pos.y -= kSpeed + static_cast<float>(GetRand(kSpeed / 2.0f));
+	m_bullet.pos.y -= kSpeed + static_cast<float>(MTRandom::GetInstance()->GetMTRand(0, kSpeed / 2));
 
 	// 判定用座標更新
 	CollRectUpdate();

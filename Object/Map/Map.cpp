@@ -1,6 +1,6 @@
 #include "Map.h"
 
-#include "../../Util/System.h"
+#include "../../Util/DxLibSystem.h"
 
 #include <DxLib.h>
 
@@ -56,16 +56,16 @@ void Map::Init()
 	Rect bgAllPos
 	{
 		{0.0f,0.0f},
-		{ System::ScreenSizeXF,System::ScreenSizeYF }
+		{ DxLibSystem::kScreenWidthF,DxLibSystem::kScreenHeightF }
 	};
 	m_graphPos[BGType::ALL].push_back(bgAllPos);
 
 	Rect bgMidPos
 	{
-		{(System::ScreenSizeXF / 2) - (m_bgSize[BGType::MID].x / 2.0f),0.0f},
-		{(System::ScreenSizeXF / 2) - (m_bgSize[BGType::MID].x / 2.0f) + m_bgSize[BGType::MID].x,m_bgSize[BGType::MID].y}
+		{(DxLibSystem::kScreenWidthF / 2) - (m_bgSize[BGType::MID].x / 2.0f),0.0f},
+		{(DxLibSystem::kScreenWidthF / 2) - (m_bgSize[BGType::MID].x / 2.0f) + m_bgSize[BGType::MID].x,m_bgSize[BGType::MID].y}
 	};
-	for (float y = -m_bgSize[BGType::MID].y; y < System::ScreenSizeYF; y += m_bgSize[BGType::MID].y)
+	for (float y = -m_bgSize[BGType::MID].y; y < DxLibSystem::kScreenHeightF; y += m_bgSize[BGType::MID].y)
 	{
 		bgMidPos.left.y  = y;
 		bgMidPos.right.y = y + m_bgSize[BGType::MID].y;
@@ -88,13 +88,13 @@ void Map::Init()
 
 	Rect bgRightPos
 	{
-		{System::ScreenSizeXF - m_bgSize[BGType::SIDERIGHT].x,0.0f},
-		{System::ScreenSizeXF,m_bgSize[BGType::SIDERIGHT].y }
+		{DxLibSystem::kScreenWidthF - m_bgSize[BGType::SIDERIGHT].x,0.0f},
+		{DxLibSystem::kScreenWidthF,m_bgSize[BGType::SIDERIGHT].y }
 	};
 	Rect bgRightSecondPos
 	{
-		{System::ScreenSizeXF - m_bgSize[BGType::SIDERIGHT].x, -m_bgSize[BGType::SIDERIGHT].y},
-		{System::ScreenSizeXF,0.0f}
+		{DxLibSystem::kScreenWidthF - m_bgSize[BGType::SIDERIGHT].x, -m_bgSize[BGType::SIDERIGHT].y},
+		{DxLibSystem::kScreenWidthF,0.0f}
 	};
 	m_graphPos[BGType::SIDERIGHT].push_back(bgRightPos);
 	m_graphPos[BGType::SIDERIGHT].push_back(bgRightSecondPos);
@@ -172,7 +172,7 @@ void Map::Scroll(BGType type, float speed)
 		m_graphPos[type][i].right.y += speed;
 
 		// ‰æ–ÊŠO‚É‚¢‚éê‡
-		if (m_graphPos[type][i].left.y > System::ScreenSizeYF)
+		if (m_graphPos[type][i].left.y > DxLibSystem::kScreenHeightF)
 		{
 			m_graphPos[type][i].left.y = -m_bgSize[type].y;
 			m_graphPos[type][i].right.y = 0.0f;

@@ -1,6 +1,6 @@
 #include "Player.h"
 
-#include "../../Util/System.h"
+#include "../../Util/DxLibSystem.h"
 
 #include <DxLib.h>
 #include <math.h>
@@ -20,7 +20,7 @@ namespace
 	constexpr int kHitPoint = 30;
 
 	// 初期位置
-	constexpr Vec2 kStartPos = { System::ScreenSizeXF / 2.0f , System::ScreenSizeYF - 300.0f };
+	constexpr Vec2 kStartPos = { DxLibSystem::kScreenWidthF / 2.0f , DxLibSystem::kScreenHeightF - 300.0f };
 
 	// 初期機体用
 	Airframe kAirframe{ kStartPos , kSize , kRota ,kHitPoint };
@@ -150,9 +150,9 @@ void Player::OutSide()
 		m_airframe.pos.x = 0.0f;
 	}
 	// 右
-	if (m_airframe.pos.x > System::ScreenSizeXF)
+	if (m_airframe.pos.x > DxLibSystem::kScreenWidthF)
 	{
-		m_airframe.pos.x = System::ScreenSizeXF;
+		m_airframe.pos.x = DxLibSystem::kScreenWidthF;
 	}
 	// 上
 	if (m_airframe.pos.y < 0.0f)
@@ -160,9 +160,9 @@ void Player::OutSide()
 		m_airframe.pos.y = 0.0f;
 	}
 	// 下
-	if (m_airframe.pos.y > System::ScreenSizeYF)
+	if (m_airframe.pos.y > DxLibSystem::kScreenHeightF)
 	{
-		m_airframe.pos.y = System::ScreenSizeYF;
+		m_airframe.pos.y = DxLibSystem::kScreenHeightF;
 	}
 }
 
