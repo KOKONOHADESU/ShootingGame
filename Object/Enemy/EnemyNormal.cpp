@@ -9,10 +9,10 @@ namespace
 	constexpr int kHitPointMax = 1;
 
 	// ”»’è‚Ì‘å‚«‚³
-	constexpr float kLeftXSize  = 35;
-	constexpr float kLeftYSize  = 35;
-	constexpr float kRightXSize = 35;
-	constexpr float kRightYSize = 35;
+	constexpr float kLeftXSize  = 35.0f;
+	constexpr float kLeftYSize  = 35.0f;
+	constexpr float kRightXSize = 35.0f;
+	constexpr float kRightYSize = 35.0f;
 }
 
 EnemyNormal::EnemyNormal(Airframe airframe, const std::vector<int>& handle, const std::vector<int>& hDead):

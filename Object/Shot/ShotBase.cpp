@@ -16,6 +16,7 @@ ShotBase::ShotBase(Vec2 startPos, const std::vector<int>& handle) :
 	m_animGraphChangeNum(0),
 	m_collRect({ 0.0f,0.0f ,0.0f,0.0f }),
 	m_collSize({ 0.0f,0.0f ,0.0f,0.0f }),
+	m_isHit(false),
 	m_isEnable(true)
 {
 	// スタート位置のセット

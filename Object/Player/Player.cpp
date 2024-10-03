@@ -4,6 +4,7 @@
 
 #include <DxLib.h>
 #include <math.h>
+#include <algorithm>
 
 namespace
 {
@@ -150,25 +151,16 @@ void Player::Input()
 void Player::OutSide()
 {
 	// ç∂
-	if (m_airframe.pos.x < 0.0f)
-	{
-		m_airframe.pos.x = 0.0f;
-	}
+	m_airframe.pos.x = (std::max)(m_airframe.pos.x, 0.0f);
+
 	// âE
-	if (m_airframe.pos.x > DxLibSystem::kScreenWidthF)
-	{
-		m_airframe.pos.x = DxLibSystem::kScreenWidthF;
-	}
+	m_airframe.pos.x = (std::min)(m_airframe.pos.x, DxLibSystem::kScreenWidthF);
+
 	// è„
-	if (m_airframe.pos.y < 0.0f)
-	{
-		m_airframe.pos.y = 0.0f;
-	}
+	m_airframe.pos.y = (std::max)(m_airframe.pos.y, 0.0f);
+
 	// â∫
-	if (m_airframe.pos.y > DxLibSystem::kScreenHeightF)
-	{
-		m_airframe.pos.y = DxLibSystem::kScreenHeightF;
-	}
+	m_airframe.pos.y = (std::min)(m_airframe.pos.y, DxLibSystem::kScreenHeightF);
 }
 
 void Player::CollRectUpdate()

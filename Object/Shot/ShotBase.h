@@ -65,6 +65,9 @@ protected:
 	// 四角形判定サイズ
 	Rect m_collSize;
 
+	// 攻撃があたったかどうか
+	bool m_isHit;
+
 	// オブジェクトが消滅するかどうか
 	bool m_isEnable;
 };

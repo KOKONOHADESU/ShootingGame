@@ -26,6 +26,7 @@ public:
 	// ショットの初期化
 	void CreateShotNormal(Vec2 startPos);
 	void CreateShotMissile(Vec2 startPos);
+	void CreateShotRocket(Vec2 startPos);
 private:
 	// ショット
 	std::list<ShotBase*> m_pShot;

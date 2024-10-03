@@ -68,8 +68,9 @@ void SceneManager::Update()
 	// 1つ以上の弾を発射していた場合弾を生成
 	if (m_pPlayer->GetShootingNum() >= 1)
 	{
-	//	m_pShotManager->CreateShotNormal(m_pPlayer->GetPos());
-		m_pShotManager->CreateShotMissile(m_pPlayer->GetPos());
+		m_pShotManager->CreateShotNormal(m_pPlayer->GetPos());
+	//	m_pShotManager->CreateShotMissile(m_pPlayer->GetPos());
+	//	m_pShotManager->CreateShotRocket(m_pPlayer->GetPos());
 	}
 
 	// プレイヤーからショットリストを取得
@@ -77,7 +78,11 @@ void SceneManager::Update()
 
 	// エネミーマネージャーからエネミーを取得
 	std::list<EnemyBase*>& enemies = m_pEnemyManager->GetEnemyData();
+	
+	// プレイヤーの判定座標
+	const Rect player = m_pPlayer->GetCollData();
 
+	// 弾とエネミーの判定
 	for (auto& shot : shots)
 	{
 		for (auto& enemy : enemies)
@@ -91,6 +96,13 @@ void SceneManager::Update()
 				// ショットの耐久力を減らす
 				shot->SetCheckHit();
 			}
+		}
+	}
+	// プレイヤーとエネミーの判定
+	for (auto& enemy : enemies)
+	{
+		if (Collision2D::CheckRect(player, enemy->GetCollData()))
+		{		
 		}
 	}
 }

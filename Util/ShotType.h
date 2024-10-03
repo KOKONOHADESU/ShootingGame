@@ -5,6 +5,7 @@ enum ShotType
 {
 	NORMAL,
 	MISSILE,
+	ROCKET,
 
 	MAX,
 };

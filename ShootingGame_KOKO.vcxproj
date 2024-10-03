@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Shot\ShotRocket.cpp" />
     <ClCompile Include="Util\GraphicSprite.cpp" />
     <ClCompile Include="Object\Shot\ShotManager.cpp" />
     <ClCompile Include="Object\Shot\ShotBase.cpp" />
@@ -160,6 +161,7 @@
     <ClCompile Include="Util\SingletonBase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Shot\ShotRocket.h" />
     <ClInclude Include="Util\EnemyType.h" />
     <ClInclude Include="Util\GraphicSprite.h" />
     <ClInclude Include="Object\Shot\ShotManager.h" />

@@ -2,6 +2,7 @@
 
 #include "ShotNomal.h"
 #include "ShotMissile.h"
+#include "ShotRocket.h"
 
 #include "../../Util/GraphicSprite.h"
 #include "../../Util/ShotType.h"
@@ -13,17 +14,23 @@ namespace
 {
 	// 画像ファイルパス
 	// ノーマルショット
-	const char* const kShotNomalpath = "Data/Image/Shot/shot.png";
+	const char* const kShotNomalPath = "Data/Image/Shot/shot.png";
 	// ミサイルショット
-	const char* const kShotMissilepath = "Data/Image/Shot/Shoot1.png";
+	const char* const kShotMissilePath = "Data/Image/Shot/Shoot1.png";
+	// ロケットショット
+	const char* const kShotRocketPath = "Data/Image/Shot/Shoot2.png";
 
 	// ノーマルショット
 	constexpr int kShotNomalGrapicNumX = 1;
 	constexpr int kShotNomalGrapicNumY = 1;
 
 	// ミサイルショット
-	constexpr int kMissileNomalGrapicNumX = 3;
-	constexpr int kMissileNomalGrapicNumY = 1;
+	constexpr int kShotMissileGrapicNumX = 3;
+	constexpr int kShotMissileGrapicNumY = 1;
+
+	// ロケットショット
+	constexpr int kShotRocketGrapicNumX = 4;
+	constexpr int kShotRocketGrapicNumY = 1;
 }
 
 ShotManager::ShotManager()
@@ -39,8 +46,9 @@ void ShotManager::Init()
 	// 画像タイプを指定
 	GraphicSprite::InitType(m_handle, ShotType::MAX);
 	// 画像タイプ別画像分割数を指定
-	GraphicSprite::InitGraphic(m_handle, ShotType::NORMAL, kShotNomalpath, kShotNomalGrapicNumX, kShotNomalGrapicNumY);
-	GraphicSprite::InitGraphic(m_handle, ShotType::MISSILE, kShotMissilepath, kMissileNomalGrapicNumX, kMissileNomalGrapicNumY);
+	GraphicSprite::InitGraphic(m_handle, ShotType::NORMAL, kShotNomalPath, kShotNomalGrapicNumX, kShotNomalGrapicNumY);
+	GraphicSprite::InitGraphic(m_handle, ShotType::MISSILE, kShotMissilePath, kShotMissileGrapicNumX, kShotMissileGrapicNumY);
+	GraphicSprite::InitGraphic(m_handle, ShotType::ROCKET, kShotRocketPath, kShotRocketGrapicNumX, kShotRocketGrapicNumY);
 }
 
 void ShotManager::End()
@@ -129,6 +137,12 @@ void ShotManager::CreateShotMissile(Vec2 startPos)
 
 	pos.x = startPos.x - 30.0f;
 
-	// ショットの初期化
+	// ミサイルショットの初期化
 	m_pShot.push_back(new ShotMissile(pos, m_handle[ShotType::MISSILE]));
+}
+
+void ShotManager::CreateShotRocket(Vec2 startPos)
+{
+	// ロケットショットの初期化
+	m_pShot.push_back(new ShotRocket(startPos, m_handle[ShotType::ROCKET]));
 }
