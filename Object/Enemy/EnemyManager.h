@@ -39,5 +39,8 @@ private:
 	// 画像ハンドル
 	std::vector<std::vector<int>> m_handle;
 
+	// 画像死亡ハンドル
+	std::vector<std::vector<int>> m_hDead;
+
 };
 

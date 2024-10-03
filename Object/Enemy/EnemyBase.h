@@ -15,10 +15,9 @@ namespace
 class EnemyBase
 {
 public:
-	EnemyBase(Airframe airframe, const std::vector<int>& handle);
+	EnemyBase(Airframe airframe, const std::vector<int>& handle, const std::vector<int>& hDead);
 	virtual ~EnemyBase();
-protected:
-	virtual void Init(const char* graphPath);
+
 public:
 	virtual void End();
 	virtual void Update();
@@ -56,7 +55,7 @@ protected:
 	std::vector<int> m_handle;
 
 	// 死亡演出用ハンドル
-	int m_hExplosion[kExplosionGraphAllNum];
+	std::vector<int> m_hDead;	
 
 	// 死亡演出画像の切り替えフレームカウント
 	int m_explosionGraphChangeFrameCount;

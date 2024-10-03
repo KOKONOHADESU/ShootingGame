@@ -6,25 +6,13 @@
 
 namespace
 {
-	// 死亡演出用画像
-	const char* const kExplosionPath = "Data/Image/Destroy/explosion.png";
-
-	// 死亡演出用画像の横の列の数
-	constexpr int kExplosionGraphXNum = 7;
-	// 死亡演出用画像の縦の列の数
-	constexpr int kExplosionGraphYNum = 1;
-	// 死亡演出用画像の横のサイズ
-	constexpr int kExplosionGraphXSize = 128;
-	// 死亡演出用画像の縦のサイズ
-	constexpr int kExplosionGraphYSize = 128;
-
 	// 死亡演出画像切り替えフレーム
 	constexpr int kExplosionChangeFrameMax = 1;
 }
 
-EnemyBase::EnemyBase(Airframe airframe, const std::vector<int>& handle):
+EnemyBase::EnemyBase(Airframe airframe, const std::vector<int>& handle, const std::vector<int>& hDead):
 	m_explosionGraphChangeFrameCount(-1),
-	m_explosionGraphChangeNum(-1),
+	m_explosionGraphChangeNum(0),
 	m_airframe(airframe),
 	m_collRect({ 0.0f,0.0f ,0.0f,0.0f }),
 	m_isDead(false),
@@ -33,37 +21,17 @@ EnemyBase::EnemyBase(Airframe airframe, const std::vector<int>& handle):
 	// メンバ関数の初期
 	m_pFunc = &EnemyBase::StartUpdate;
 
-	for (int i = 0; i < kExplosionGraphXNum * kExplosionGraphYNum; i++)
-	{
-		m_hExplosion[i] = -1;
-	}
-
 	// ハンドルの読み込み
 	m_handle = handle;
-
-	// 死亡演出画像の読み込み
-	Init(kExplosionPath);
+	m_hDead = hDead;
 }
 
 EnemyBase::~EnemyBase()
 {
 }
 
-void EnemyBase::Init(const char* graphPath)
-{
-	// 画像ファイルのメモリへの分割読みこみ
-	LoadDivGraph(kExplosionPath, kExplosionGraphXNum * kExplosionGraphYNum,
-		kExplosionGraphXNum, kExplosionGraphYNum,
-		kExplosionGraphXSize, kExplosionGraphYSize, m_hExplosion);
-}
-
 void EnemyBase::End()
 {
-	// メモリ解放
-	for (int i = 0; i < kExplosionGraphXNum * kExplosionGraphYNum; i++)
-	{
-		DeleteGraph(m_hExplosion[i]);
-	}
 }
 
 void EnemyBase::Update()
@@ -92,7 +60,7 @@ void EnemyBase::Draw()
 			m_airframe.pos.y,
 			m_airframe.size,
 			m_airframe.rota,
-			m_hExplosion[m_explosionGraphChangeNum], true);
+			m_hDead[m_explosionGraphChangeNum], true);
 	}
 
 #if _DEBUG
@@ -155,7 +123,7 @@ void EnemyBase::ExplosionUpdate()
 	}
 
 	// 演出が終わった場合存在を消す
-	if (m_explosionGraphChangeNum == kExplosionGraphXNum * kExplosionGraphYNum)
+	if (m_explosionGraphChangeNum == static_cast<int>(m_hDead.size()) - 1)
 	{
 		m_isEnable = false;
 	}

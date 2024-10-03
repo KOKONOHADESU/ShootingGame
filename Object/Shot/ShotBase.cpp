@@ -6,10 +6,14 @@ namespace
 {
 	// 自身の耐久力へのダメージ
 	constexpr int kMyHitDamage = 1;
+
+	// アニメーションフレーム
+	constexpr int kAnimFrameMax = 1;
 }
 
 ShotBase::ShotBase(Vec2 startPos, const std::vector<int>& handle) :
-	m_graphNum(0),
+	m_animGraphChangeFrameCount(-1),
+	m_animGraphChangeNum(0),
 	m_collRect({ 0.0f,0.0f ,0.0f,0.0f }),
 	m_collSize({ 0.0f,0.0f ,0.0f,0.0f }),
 	m_isEnable(true)
@@ -33,7 +37,7 @@ void ShotBase::End()
 void ShotBase::Draw()
 {
 	// 描画処理
-	DrawRotaGraphF(m_bullet.pos.x, m_bullet.pos.y, m_bullet.size, m_bullet.rota, m_handle[m_graphNum], true);
+	DrawRotaGraphF(m_bullet.pos.x, m_bullet.pos.y, m_bullet.size, m_bullet.rota, m_handle[m_animGraphChangeNum], true);
 
 #if _DEBUG
 	// 判定用デバッグ描画
@@ -94,5 +98,23 @@ void ShotBase::CheckEnablePos()
 	if (m_bullet.pos.y < 0.0f)
 	{
 		m_isEnable = false;
+	}
+}
+
+void ShotBase::AnimUpdate()
+{
+	// ショットアニメーション用画像を特定のフレームで切り替えアニメーションを行う
+	m_animGraphChangeFrameCount++;
+	if (m_animGraphChangeFrameCount > kAnimFrameMax)
+	{
+		m_animGraphChangeNum++;
+
+		m_animGraphChangeFrameCount = 0;
+	}
+
+	// 演出が終わった場合アニメーションを位置から
+	if (m_animGraphChangeNum == static_cast<int>(m_handle.size()))
+	{
+		m_animGraphChangeNum = 0;
 	}
 }

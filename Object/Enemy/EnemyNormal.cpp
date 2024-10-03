@@ -15,8 +15,8 @@ namespace
 	constexpr float kRightYSize = 35;
 }
 
-EnemyNormal::EnemyNormal(Airframe airframe, const std::vector<int>& handle):
-	EnemyBase::EnemyBase(airframe, handle)
+EnemyNormal::EnemyNormal(Airframe airframe, const std::vector<int>& handle, const std::vector<int>& hDead):
+	EnemyBase::EnemyBase(airframe, handle, hDead)
 {
 	// ‘Ì—Í‚Ì‰Šú‰»
 	m_airframe.hitPoint = kHitPointMax;

@@ -11,11 +11,20 @@
 
 namespace
 {
-//	constexpr int kNomalEnemySpawnFrameMax = 60 * 1;
+	// ノーマルエネミー生成フレーム
 	constexpr int kNomalEnemySpawnFrameMax = 1;
 
 	// ファイルパス
-	const char* const kEnemyNormalpath = "Data/Image/Enemy/enemy1.png";
+	const char* const kEnemyNormalPath = "Data/Image/Enemy/enemy1.png";
+	const char* const kEnemyDeadPath = "Data/Image/Destroy/explosion.png";
+
+	// ノーマルエネミー
+	constexpr int kEnemyNormalGrapicNumX = 1;
+	constexpr int kEnemyNormalGrapicNumY = 1;
+
+	// エネミー死亡演出
+	constexpr int kEnemyDeadGrapicNumX = 7;
+	constexpr int kEnemyDeadGrapicNumY = 1;
 }
 
 EnemyManager::EnemyManager():
@@ -32,7 +41,12 @@ void EnemyManager::Init()
 	// 画像タイプを指定
 	GraphicSprite::InitType(m_handle, EnemyType::MAX);
 	// 画像タイプ別画像分割数を指定
-	GraphicSprite::InitGraphic(m_handle, EnemyType::NORMAL, kEnemyNormalpath, 1, 1);
+	GraphicSprite::InitGraphic(m_handle, EnemyType::NORMAL, kEnemyNormalPath, kEnemyNormalGrapicNumX, kEnemyNormalGrapicNumY);
+
+	// 画像死亡タイプを指定
+	GraphicSprite::InitType(m_hDead, 1);
+	// 画像タイプ別画像分割数を指定
+	GraphicSprite::InitGraphic(m_hDead, 0, kEnemyDeadPath, kEnemyDeadGrapicNumX, kEnemyDeadGrapicNumY);
 }
 
 void EnemyManager::End()
@@ -51,6 +65,14 @@ void EnemyManager::End()
 		for (int j = 0; j < m_handle[i].size(); j++)
 		{
 			DeleteGraph(m_handle[i][j]);
+		}
+	}
+
+	for (int i = 0; i < static_cast<int>(1); i++)
+	{
+		for (int j = 0; j < m_hDead[i].size(); j++)
+		{
+			DeleteGraph(m_hDead[i][j]);
 		}
 	}
 }
@@ -133,5 +155,5 @@ void EnemyManager::NomalSpawn()
 	data.size = 1.0f;
 
 	// 機体の追加
-	m_pEnemy.push_back(new EnemyNormal(data,m_handle[EnemyType::NORMAL]));
+	m_pEnemy.push_back(new EnemyNormal(data,m_handle[EnemyType::NORMAL], m_hDead[0]));
 }

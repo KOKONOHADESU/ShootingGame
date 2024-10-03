@@ -45,12 +45,16 @@ protected:
 	// 位置を確認する
 	void CheckEnablePos();
 
+	// アニメーション用
+	void AnimUpdate();
+private:
+	// 画像アニメーション用
+	int m_animGraphChangeFrameCount;
+	int m_animGraphChangeNum;
+
 protected:
 	// 画像ハンドル
 	std::vector<int> m_handle;
-
-	// 画像再生用画像の数
-	int m_graphNum;
 
 	// 弾データ
 	Bullet m_bullet;

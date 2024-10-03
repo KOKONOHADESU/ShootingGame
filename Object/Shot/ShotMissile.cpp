@@ -61,4 +61,7 @@ void ShotMissile::Update()
 
 	// 耐久力の確認
 	CheckHitPoint();
+
+	// 画像アニメーション
+	AnimUpdate();
 }
