@@ -28,8 +28,6 @@ ItemCoin::ItemCoin(Vec2 startPos, const std::vector<int>& handle):
 	m_collSize.left.y  = kLeftYSize;
 	m_collSize.right.x = kRightXSize;
 	m_collSize.right.y = kRightYSize;
-
-	m_tempPos = { 0.0f,0.0f };
 }
 
 ItemCoin::~ItemCoin()
