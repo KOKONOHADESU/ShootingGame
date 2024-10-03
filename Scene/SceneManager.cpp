@@ -81,12 +81,13 @@ void SceneManager::Update()
 	//	m_pShotManager->CreateShotRocket(m_pPlayer->GetPos());
 	}
 
-	// プレイヤーからショットリストを取得
+	// ショットマネージャーからショットリストを取得
 	std::list<ShotBase*>& shots = m_pShotManager->GetShotData();
 
 	// エネミーマネージャーからエネミーを取得
 	std::list<EnemyBase*>& enemies = m_pEnemyManager->GetEnemyData();
 
+	// アイテムマネージャーからアイテムを取得
 	std::list<ItemBase*>& items = m_pItemManager->GetItemData();
 	
 	// プレイヤーの判定座標
@@ -123,8 +124,7 @@ void SceneManager::Update()
 			// アイテムに当たったことを確認
 			item->IsHitObject();
 		}
-	}
-	
+	}	
 }
 
 void SceneManager::Draw()
