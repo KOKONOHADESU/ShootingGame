@@ -120,6 +120,8 @@ void SceneManager::Update()
 	{
 		if (Collision2D::CheckRect(player, item->GetCollData()))
 		{
+			// アイテムに当たったことを確認
+			item->IsHitObject();
 		}
 	}
 	

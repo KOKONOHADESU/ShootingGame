@@ -8,6 +8,8 @@ public:
 	ItemCoin(Vec2 startPos, const std::vector<int>& handle);
 	~ItemCoin();
 
-	void Update();
+	void StartUpdate()override;
+	void BattleUpdate()override;
+	void DeadUpdate()override;
 };
 

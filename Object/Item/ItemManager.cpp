@@ -58,6 +58,9 @@ void ItemManager::Update()
 	{
 		item->Update();
 	}	
+
+	// オブジェクトの存在を確認
+	CheckEnable();
 }
 
 void ItemManager::Draw()
@@ -78,4 +81,26 @@ void ItemManager::CreateItemCoin(Vec2 startPos)
 {
 	// コイン生成
 	m_pItem.push_back(new ItemCoin(startPos, m_handle[ItemType::COIN]));
+}
+
+void ItemManager::CheckEnable()
+{
+	// オブジェクトの存在を確認
+	for (auto it = m_pItem.begin(); it != m_pItem.end();)
+	{
+		// エネミーの存在が消える場合
+		if (!(*it)->IsEnable())
+		{
+			// メモリ解放
+			delete* it;
+
+			// リストから要素を削除
+			it = m_pItem.erase(it);
+		}
+		else
+		{
+			// 削除しない場合は次の要素へ進む
+			++it;
+		}
+	}
 }

@@ -23,6 +23,11 @@ public:
 
 	// アイテムの生成
 	void CreateItemCoin(Vec2 startPos);
+
+private:
+	// 存在するかどうか
+	void CheckEnable();
+
 private:
 	// 画像ハンドル
 	std::vector<std::vector<int>> m_handle;

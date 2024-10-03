@@ -33,10 +33,29 @@ ItemCoin::~ItemCoin()
 
 }
 
-void ItemCoin::Update()
+void ItemCoin::StartUpdate()
 {
-	// 判定サイズ用更新処理
+	// 関数ポインタの変更
+	m_pFunc = &ItemBase::BattleUpdate;
+}
+
+void ItemCoin::BattleUpdate()
+{
+	// 判定更新
 	CollRectUpdate();
-	// アニメーションの再生
+
+	// アニメーション
 	AnimUpdate();
+
+	// オブジェトに当たった場合
+	if (m_isHit)
+	{
+		// 関数ポインタの変更
+		m_pFunc = &ItemBase::DeadUpdate;
+	}
+}
+
+void ItemCoin::DeadUpdate()
+{
+	m_isEnable = false;
 }

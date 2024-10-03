@@ -12,17 +12,28 @@ ItemBase::ItemBase(Vec2 startPos, const std::vector<int>& handle):
 	m_animGraphChangeFrameCount(-1),
 	m_animGraphChangeNum(0),
 	m_collRect({0.0f,0.0f,0.0f,0.0f }),
-	m_collSize({0.0f,0.0f,0.0f,0.0f })
+	m_collSize({0.0f,0.0f,0.0f,0.0f }),
+	m_isHit(false),
+	m_isEnable(true)
 {
+	// メンバ関数の初期
+	m_pFunc = &ItemBase::StartUpdate;
+
 	// 初期位置座標
 	m_item.pos = startPos;
-
 	// ハンドルデータ
 	m_handle = handle;
+
 }
 
 ItemBase::~ItemBase()
 {
+}
+
+void ItemBase::Update()
+{
+	// メンバ関数ポインタ
+	(this->*m_pFunc)();
 }
 
 void ItemBase::Draw()
@@ -44,6 +55,16 @@ Vec2 ItemBase::GetPos() const
 Rect ItemBase::GetCollData() const
 {
 	return m_collRect;
+}
+
+void ItemBase::IsHitObject()
+{
+	m_isHit = true;
+}
+
+bool ItemBase::IsEnable() const
+{
+	return m_isEnable;
 }
 
 void ItemBase::CollRectUpdate()

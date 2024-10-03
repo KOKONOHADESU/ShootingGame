@@ -13,14 +13,27 @@ public:
 	ItemBase(Vec2 startPos, const std::vector<int>& handle);
 	virtual ~ItemBase();
 
-	virtual void Update() = 0;
+	virtual void Update();
 	virtual void Draw();
+public:
+	// 生成後
+	virtual void StartUpdate() = 0;
+	// バトル状態
+	virtual void BattleUpdate() = 0;
+	// 消滅状態
+	virtual void DeadUpdate() = 0;
 public:
 	// 位置を渡す
 	Vec2 GetPos()const;
 
 	// 判定用座標を渡す
 	Rect GetCollData()const;
+
+	// オブジェクトに当たった場合
+	void IsHitObject();
+
+	// 存在するかどうか
+	bool IsEnable()const;
 
 protected:
 	// 判定更新処理
@@ -46,5 +59,14 @@ protected:
 
 	// 四角形判定サイズ
 	Rect m_collSize;
+
+	// プレイヤーにあったたかどうか
+	bool m_isHit;
+
+	// オブジェクトが消滅するかどうか
+	bool m_isEnable;
+
+	// メンバ関数ポインタ
+	void(ItemBase::* m_pFunc)();
 };
 
