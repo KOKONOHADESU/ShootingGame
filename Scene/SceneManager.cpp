@@ -6,6 +6,8 @@
 #include "../Object/Shot/ShotBase.h"
 #include "../Object/Enemy/EnemyManager.h"
 #include "../Object/Enemy/EnemyBase.h"
+#include "../Object/Item/ItemManager.h"
+#include "../Object/Item/ItemBase.h"
 
 #include "../Util/Collision2D.h"
 
@@ -15,7 +17,8 @@ SceneManager::SceneManager():
 	m_pMap(nullptr),
 	m_pPlayer(nullptr),
 	m_pEnemyManager(nullptr),
-	m_pShotManager(nullptr)
+	m_pShotManager(nullptr),
+	m_pItemManager(nullptr)
 {
 }
 
@@ -30,6 +33,7 @@ void SceneManager::Init()
 	m_pPlayer       = new Player();
 	m_pEnemyManager = new EnemyManager();
 	m_pShotManager  = new ShotManager();
+	m_pItemManager  = new ItemManager();
 
 	// 初期化
 	m_pMap->Init();
@@ -45,16 +49,19 @@ void SceneManager::End()
 	m_pPlayer->End();
 	m_pEnemyManager->End();
 	m_pShotManager->End();
+	m_pItemManager->End();
 
 	delete m_pMap;
 	delete m_pPlayer;
 	delete m_pEnemyManager;
 	delete m_pShotManager;
+	delete m_pItemManager;
 
 	m_pMap          = nullptr;
 	m_pPlayer       = nullptr;
 	m_pEnemyManager = nullptr;
 	m_pShotManager  = nullptr;
+	m_pItemManager = nullptr;
 }
 
 void SceneManager::Update()
@@ -64,6 +71,7 @@ void SceneManager::Update()
 	m_pPlayer->Update();
 	m_pEnemyManager->Update();
 	m_pShotManager->Update();
+	m_pItemManager->Update();
 
 	// 1つ以上の弾を発射していた場合弾を生成
 	if (m_pPlayer->GetShootingNum() >= 1)
@@ -78,6 +86,8 @@ void SceneManager::Update()
 
 	// エネミーマネージャーからエネミーを取得
 	std::list<EnemyBase*>& enemies = m_pEnemyManager->GetEnemyData();
+
+	std::list<ItemBase*>& items = m_pItemManager->GetItemData();
 	
 	// プレイヤーの判定座標
 	const Rect player = m_pPlayer->GetCollData();
@@ -102,15 +112,24 @@ void SceneManager::Update()
 	for (auto& enemy : enemies)
 	{
 		if (Collision2D::CheckRect(player, enemy->GetCollData()))
-		{		
+		{
 		}
 	}
+	// プレイヤーとアイテム
+	for (auto& item : items)
+	{
+		if (Collision2D::CheckRect(player, item->GetCollData()))
+		{
+		}
+	}
+	
 }
 
 void SceneManager::Draw()
 {
 	// 描画処理
 	m_pMap->Draw();
+	m_pItemManager->Draw();
 	m_pShotManager->Draw();
 	m_pEnemyManager->Draw();
 	m_pPlayer->Draw();

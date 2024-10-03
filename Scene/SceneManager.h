@@ -3,6 +3,7 @@ class Map;
 class Player;
 class EnemyManager;
 class ShotManager;
+class ItemManager;
 class SceneManager final
 {
 public:
@@ -23,4 +24,6 @@ private:
 	EnemyManager* m_pEnemyManager;
 	// ショット管理
 	ShotManager* m_pShotManager;
+	// アイテム管理
+	ItemManager* m_pItemManager;
 };

@@ -143,6 +143,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Item\ItemCoin.cpp" />
+    <ClCompile Include="Object\Item\ItemManager.cpp" />
+    <ClCompile Include="Object\Item\ItemBase.cpp" />
     <ClCompile Include="Object\Shot\ShotRocket.cpp" />
     <ClCompile Include="Util\GraphicSprite.cpp" />
     <ClCompile Include="Object\Shot\ShotManager.cpp" />
@@ -161,6 +164,11 @@
     <ClCompile Include="Util\SingletonBase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Item\ItemCoin.h" />
+    <ClInclude Include="Object\Item\ItemManager.h" />
+    <ClInclude Include="Object\Item\ItemBase.h" />
+    <ClInclude Include="Util\ItemType.h" />
+    <ClInclude Include="Util\Item.h" />
     <ClInclude Include="Object\Shot\ShotRocket.h" />
     <ClInclude Include="Util\EnemyType.h" />
     <ClInclude Include="Util\GraphicSprite.h" />

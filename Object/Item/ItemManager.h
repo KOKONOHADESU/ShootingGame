@@ -1,0 +1,33 @@
+#pragma once
+
+#include "../../Util/Vec2.h"
+
+#include <list>
+#include <vector>
+
+class ItemBase;
+
+// アイテム管理クラス
+class ItemManager final
+{
+public:
+	ItemManager();
+	~ItemManager();
+
+	void End();
+	void Update();
+	void Draw();
+public:
+	// ショットデータ
+	std::list<ItemBase*>& GetItemData();
+
+	// アイテムの生成
+	void CreateItemCoin(Vec2 startPos);
+private:
+	// 画像ハンドル
+	std::vector<std::vector<int>> m_handle;
+
+	// アイテム
+	std::list<ItemBase*> m_pItem;
+};
+
