@@ -15,7 +15,15 @@ namespace
 	// ノーマルショット
 	const char* const kShotNomalpath = "Data/Image/Shot/shot.png";
 	// ミサイルショット
-	const char* const kShotMissilepath = "Data/Image/Player/Shoot/Shoot1.png";
+	const char* const kShotMissilepath = "Data/Image/Shot/Shoot1.png";
+
+	// ノーマルショット
+	constexpr int kShotNomalGrapicNumX = 1;
+	constexpr int kShotNomalGrapicNumY = 1;
+
+	// ミサイルショット
+	constexpr int kMissileNomalGrapicNumX = 3;
+	constexpr int kMissileNomalGrapicNumY = 1;
 }
 
 ShotManager::ShotManager()
@@ -31,8 +39,8 @@ void ShotManager::Init()
 	// 画像タイプを指定
 	GraphicSprite::InitType(m_handle, ShotType::MAX);
 	// 画像タイプ別画像分割数を指定
-	GraphicSprite::InitGraphic(m_handle, ShotType::NORMAL, kShotNomalpath, 1, 1);
-	GraphicSprite::InitGraphic(m_handle, ShotType::MISSILE, kShotMissilepath, 3, 1);
+	GraphicSprite::InitGraphic(m_handle, ShotType::NORMAL, kShotNomalpath, kShotNomalGrapicNumX, kShotNomalGrapicNumY);
+	GraphicSprite::InitGraphic(m_handle, ShotType::MISSILE, kShotMissilepath, kMissileNomalGrapicNumX, kMissileNomalGrapicNumY);
 }
 
 void ShotManager::End()
@@ -106,7 +114,7 @@ std::list<ShotBase*>& ShotManager::GetShotData()
 
 void ShotManager::CreateShotNormal(Vec2 startPos)
 {
-	// ショットの初期化
+	// ノーマルショットの初期化
 	m_pShot.push_back(new ShotNomal(startPos, m_handle[ShotType::NORMAL]));
 }
 
@@ -116,7 +124,7 @@ void ShotManager::CreateShotMissile(Vec2 startPos)
 
 	pos.x = startPos.x + 30.0f;
 
-	// ショットの初期化
+	// ミサイルショットの初期化
 	m_pShot.push_back(new ShotMissile(pos, m_handle[ShotType::MISSILE]));
 
 	pos.x = startPos.x - 30.0f;
