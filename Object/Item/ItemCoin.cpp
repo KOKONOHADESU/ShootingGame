@@ -47,17 +47,17 @@ void ItemCoin::BattleUpdate()
 	CollRectUpdate();
 
 	// アニメーション
-	AnimUpdate();
+	AnimUpdate(true);
 
 	// オブジェトに当たった場合
 	if (m_isHit)
 	{		
 		// 関数ポインタの変更
-		m_pFunc = &ItemBase::DeadUpdate;
+		m_pFunc = &ItemBase::AfterHitUpdate;
 	}
 }
 
-void ItemCoin::DeadUpdate()
+void ItemCoin::AfterHitUpdate()
 {
 	Vec2 components{ 0.0f,0.0f };
 	Vec2 direction{ 0.0f,0.0f };

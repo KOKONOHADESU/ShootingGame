@@ -1,6 +1,7 @@
 #include "ItemManager.h"
 
 #include "ItemCoin.h"
+#include "ItemWeaponMissile.h"
 
 #include "../../Util/GraphicSprite.h"
 #include "../../Util/ItemType.h"
@@ -15,6 +16,13 @@ namespace
 	// ノーマルショット
 	constexpr int kItemCoinGrapicNumX = 5;
 	constexpr int kItemCoinGrapicNumY = 1;
+
+	// 武器アイテム
+	const char* const kItemWeapon1Path = "Data/Image/Player/Weapon/Weapon1.png";
+
+	// ノーマルショット
+	constexpr int kItemWeapon1GrapicNumX = 17;
+	constexpr int kItemWeapon1GrapicNumY = 1;
 }
 
 ItemManager::ItemManager()
@@ -22,10 +30,15 @@ ItemManager::ItemManager()
 	// 画像ハンドルの初期化
 	GraphicSprite::InitType(m_handle, ItemType::MAX);
 	GraphicSprite::InitGraphic(m_handle, ItemType::COIN, kItemCoinPath, kItemCoinGrapicNumX, kItemCoinGrapicNumY);
+	GraphicSprite::InitGraphic(m_handle, ItemType::WEAPONMISSILE, kItemWeapon1Path, kItemWeapon1GrapicNumX, kItemWeapon1GrapicNumY);
 
 	CreateItemCoin(Vec2(GetRand(1920), GetRand(1080)));
 	CreateItemCoin(Vec2(GetRand(1920), GetRand(1080)));
 	CreateItemCoin(Vec2(GetRand(1920), GetRand(1080)));
+
+	CreateItemWeaponMissile(Vec2(GetRand(1920), GetRand(1080)));
+	CreateItemWeaponMissile(Vec2(GetRand(1920), GetRand(1080)));
+	CreateItemWeaponMissile(Vec2(GetRand(1920), GetRand(1080)));
 }
 
 ItemManager::~ItemManager()
@@ -77,10 +90,24 @@ std::list<ItemBase*>& ItemManager::GetItemData()
 	return m_pItem;
 }
 
+void ItemManager::SetPos(const Vec2 pos)
+{
+	for (auto& item : m_pItem)
+	{
+		item->SetPos(pos);
+	}
+}
+
 void ItemManager::CreateItemCoin(Vec2 startPos)
 {
 	// コイン生成
 	m_pItem.push_back(new ItemCoin(startPos, m_handle[ItemType::COIN]));
+}
+
+void ItemManager::CreateItemWeaponMissile(Vec2 startPos)
+{
+	// ミサイル武器生成
+	m_pItem.push_back(new ItemWeaponMissile(startPos, m_handle[ItemType::WEAPONMISSILE]));
 }
 
 void ItemManager::CheckEnable()

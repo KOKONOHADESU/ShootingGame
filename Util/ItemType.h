@@ -4,6 +4,7 @@
 enum ItemType
 {
 	COIN,
+	WEAPONMISSILE,
 
 	MAX
 };

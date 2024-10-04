@@ -21,13 +21,16 @@ public:
 	// バトル状態
 	virtual void BattleUpdate() = 0;
 	// 消滅状態
-	virtual void DeadUpdate() = 0;
+	virtual void AfterHitUpdate() = 0;
 public:
 	// 位置を渡す
 	Vec2 GetPos()const;
 
 	// 判定用座標を渡す
 	Rect GetCollData()const;
+
+	// 特定の座標を受け取る
+	void SetPos(const Vec2 pos);
 
 	// オブジェクトに当たった場合
 	void IsHitObject();
@@ -40,7 +43,7 @@ protected:
 	void CollRectUpdate();
 
 	// アニメーション用
-	virtual void AnimUpdate();
+	virtual void AnimUpdate(bool isAnim);
 
 private:
 	// 画像アニメーション用
@@ -65,6 +68,9 @@ protected:
 
 	// オブジェクトが消滅するかどうか
 	bool m_isEnable;
+
+	// ターゲットの位置を取得する
+	Vec2 m_targetPos;
 
 	// メンバ関数ポインタ
 	void(ItemBase::* m_pFunc)();

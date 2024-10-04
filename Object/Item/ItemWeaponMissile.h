@@ -2,11 +2,11 @@
 #include "ItemBase.h"
 
 // ÉRÉCÉì
-class ItemCoin : public ItemBase
+class ItemWeaponMissile : public ItemBase
 {
 public:
-	ItemCoin(Vec2 startPos, const std::vector<int>& handle);
-	~ItemCoin();
+	ItemWeaponMissile(Vec2 startPos, const std::vector<int>& handle);
+	~ItemWeaponMissile();
 
 	void StartUpdate()override;
 	void BattleUpdate()override;

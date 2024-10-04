@@ -21,8 +21,12 @@ public:
 	// ショットデータ
 	std::list<ItemBase*>& GetItemData();
 
+	// 特定の座標を受け取る
+	void SetPos(const Vec2 pos);
+
 	// アイテムの生成
 	void CreateItemCoin(Vec2 startPos);
+	void CreateItemWeaponMissile(Vec2 startPos);
 
 private:
 	// 存在するかどうか

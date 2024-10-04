@@ -57,6 +57,11 @@ Rect ItemBase::GetCollData() const
 	return m_collRect;
 }
 
+void ItemBase::SetPos(const Vec2 pos)
+{
+	m_targetPos = pos;
+}
+
 void ItemBase::IsHitObject()
 {
 	m_isHit = true;
@@ -75,20 +80,28 @@ void ItemBase::CollRectUpdate()
 	m_collRect.right.y = m_item.pos.y + m_collSize.right.y;
 }
 
-void ItemBase::AnimUpdate()
+void ItemBase::AnimUpdate(bool isAnim)
 {
-	// ショットアニメーション用画像を特定のフレームで切り替えアニメーションを行う
-	m_animGraphChangeFrameCount++;
-	if (m_animGraphChangeFrameCount > kAnimFrameMax)
+	if (isAnim)
 	{
-		m_animGraphChangeNum++;
+		// ショットアニメーション用画像を特定のフレームで切り替えアニメーションを行う
+		m_animGraphChangeFrameCount++;
+		if (m_animGraphChangeFrameCount > kAnimFrameMax)
+		{
+			m_animGraphChangeNum++;
 
-		m_animGraphChangeFrameCount = 0;
+			m_animGraphChangeFrameCount = 0;
+		}
+
+		// 演出が終わった場合アニメーションを位置から
+		if (m_animGraphChangeNum == static_cast<int>(m_handle.size()))
+		{
+			m_animGraphChangeNum = 0;
+		}
 	}
-
-	// 演出が終わった場合アニメーションを位置から
-	if (m_animGraphChangeNum == static_cast<int>(m_handle.size()))
+	else
 	{
 		m_animGraphChangeNum = 0;
+		m_animGraphChangeFrameCount = 0;
 	}
 }

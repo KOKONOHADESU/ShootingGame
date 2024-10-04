@@ -11,7 +11,7 @@ namespace
 	constexpr float kRota = 0.0f;
 
 	// ‘¬“x
-	constexpr float kSpeed = 60.0f;
+	constexpr float kSpeed = 30.0f;
 
 	// ‘Ì—Í
 	constexpr int kHitPoint = 1;

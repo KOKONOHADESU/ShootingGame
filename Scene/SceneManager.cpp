@@ -71,13 +71,16 @@ void SceneManager::Update()
 	m_pPlayer->Update();
 	m_pEnemyManager->Update();
 	m_pShotManager->Update();
+
+	// アイテムマネージャーに位置座標を渡す
+	m_pItemManager->SetPos(m_pPlayer->GetPos());
 	m_pItemManager->Update();
 
 	// 1つ以上の弾を発射していた場合弾を生成
 	if (m_pPlayer->GetShootingNum() >= 1)
 	{
-		m_pShotManager->CreateShotNormal(m_pPlayer->GetPos());
-	//	m_pShotManager->CreateShotMissile(m_pPlayer->GetPos());
+	//	m_pShotManager->CreateShotNormal(m_pPlayer->GetPos());
+		m_pShotManager->CreateShotMissile(m_pPlayer->GetPos());
 	//	m_pShotManager->CreateShotRocket(m_pPlayer->GetPos());
 	}
 
