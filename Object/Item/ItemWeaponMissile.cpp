@@ -62,5 +62,6 @@ void ItemWeaponMissile::AfterHitUpdate()
 	// アニメーション
 	AnimUpdate(true);
 
+	// ターゲットの位置に更新する
 	m_item.pos = m_targetPos;
 }

@@ -26,9 +26,6 @@ namespace
 	constexpr float kLeftYSize  = 20.0f;
 	constexpr float kRightXSize = 5.0f;
 	constexpr float kRightYSize = 20.0f;
-
-	// ‰æ‘œƒpƒX
-	const char* const kPathName = "Data/Image/Shot/shot.png";
 }
 
 ShotNomal::ShotNomal(Vec2 startPos, const std::vector<int>& handle):
