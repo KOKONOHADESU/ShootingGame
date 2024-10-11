@@ -27,10 +27,10 @@ namespace
 	Airframe kAirframe{ kStartPos , kSize , kRota ,kHitPoint };
 
 	// 判定の大きさ
-	constexpr float kLeftXSize  = 35;
-	constexpr float kLeftYSize  = 35;
-	constexpr float kRightXSize = 35;
-	constexpr float kRightYSize = 50;
+	constexpr float kLeftXSize  = 35.0f;
+	constexpr float kLeftYSize  = 35.0f;
+	constexpr float kRightXSize = 35.0f;
+	constexpr float kRightYSize = 50.0f;
 
 	// プレイヤー画像パス
 	const char* const kPlayerPath = "Data/Image/Player/Player1.png";
@@ -128,7 +128,7 @@ void Player::Input()
 	}
 
 	// ベクトルの長さを計算
-	const float length = sqrt(vec.x * vec.x + vec.y * vec.y);
+	const float length = sqrtf(vec.x * vec.x + vec.y * vec.y);
 
 	// 長さが0でない場合のみノーマライズ
 	if (length > 0.0f)

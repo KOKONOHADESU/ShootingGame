@@ -102,7 +102,6 @@ void SceneManager::Update()
 			{
 				// アイテムに当たったことを確認
 				item->IsHitObject();
-
 			}
 
 			// アイテムにプレイヤー座標を渡す

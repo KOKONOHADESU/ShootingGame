@@ -16,7 +16,7 @@ namespace
 
 	// ファイルパス
 	const char* const kEnemyNormalPath = "Data/Image/Enemy/enemy1.png";
-	const char* const kEnemyDeadPath = "Data/Image/Destroy/explosion.png";
+	const char* const kEnemyDeadPath   = "Data/Image/Destroy/explosion.png";
 
 	// ノーマルエネミー
 	constexpr int kEnemyNormalGrapicNumX = 1;
@@ -76,7 +76,6 @@ void EnemyManager::Update()
 
 	// 存在を確認する
 	CheckEnable();
-
 
 	// 更新処理
 	for (auto& enemy : m_pEnemy)
