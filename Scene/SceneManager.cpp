@@ -60,7 +60,6 @@ void SceneManager::Update()
 	m_pPlayerManager->Update();
 	m_pEnemyManager->Update();
 	m_pShotManager->Update();
-	m_pItemManager->Update();
 
 	// プレイヤーマネージャーからプレイヤーを取得
 	std::list<Player*>& players = m_pPlayerManager->GetPlayerData();
@@ -81,7 +80,7 @@ void SceneManager::Update()
 		if (player->GetShootingNum() >= 1)
 		{
 			//	m_pShotManager->CreateShotNormal(m_pPlayer->GetPos());
-			shots->CreateShotMissile(player->GetPos());
+			m_pShotManager->CreateShotMissile(player->GetPos());
 			//	m_pShotManager->CreateShotRocket(m_pPlayer->GetPos());
 		}
 
@@ -104,11 +103,11 @@ void SceneManager::Update()
 				// アイテムに当たったことを確認
 				item->IsHitObject();
 
-				// アイテムにプレイヤー座標を渡す
-				item->SetPos(player->GetPos());
 			}
-		}
 
+			// アイテムにプレイヤー座標を渡す
+			item->SetPos(player->GetPos());
+		}
 	}
 
 	// 弾とエネミーの判定
@@ -126,8 +125,15 @@ void SceneManager::Update()
 				shot->SetCheckHit();
 			}
 		}
+
+		for (auto& player : players)
+		{
+
+		}
 	}
 
+	// アイテム更新処理
+	m_pItemManager->Update();
 }
 
 void SceneManager::Draw()

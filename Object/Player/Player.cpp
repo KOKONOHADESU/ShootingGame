@@ -31,6 +31,9 @@ namespace
 	constexpr float kLeftYSize  = 35;
 	constexpr float kRightXSize = 35;
 	constexpr float kRightYSize = 50;
+
+	// プレイヤー画像パス
+	const char* const kPlayerPath = "Data/Image/Player/Player1.png";
 }
 
 Player::Player():
@@ -40,7 +43,7 @@ Player::Player():
 	m_shootingNum(0)
 {
 	// メモリ確保
-	m_hGraph = LoadGraph("Data/Image/Player/Player1.png");
+	m_hGraph = LoadGraph(kPlayerPath);
 
 	// 判定用位置座標更新
 	CollRectUpdate();
