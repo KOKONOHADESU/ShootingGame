@@ -11,8 +11,6 @@ public:
 	EnemyManager();
 	~EnemyManager();
 
-	void Init();
-	void End();
 	void Update();
 	void Draw();
 public:

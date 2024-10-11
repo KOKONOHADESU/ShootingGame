@@ -35,14 +35,6 @@ namespace
 
 ShotManager::ShotManager()
 {
-}
-
-ShotManager::~ShotManager()
-{
-}
-
-void ShotManager::Init()
-{
 	// 画像タイプを指定
 	GraphicSprite::InitType(m_handle, ShotType::MAX);
 	// 画像タイプ別画像分割数を指定
@@ -51,7 +43,7 @@ void ShotManager::Init()
 	GraphicSprite::InitGraphic(m_handle, ShotType::ROCKET, kShotRocketPath, kShotRocketGrapicNumX, kShotRocketGrapicNumY);
 }
 
-void ShotManager::End()
+ShotManager::~ShotManager()
 {
 	// 解放処理
 	for (auto it = m_pShot.begin(); it != m_pShot.end(); ++it)

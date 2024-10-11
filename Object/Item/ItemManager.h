@@ -14,7 +14,6 @@ public:
 	ItemManager();
 	~ItemManager();
 
-	void End();
 	void Update();
 	void Draw();
 public:

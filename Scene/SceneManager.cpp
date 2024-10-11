@@ -1,6 +1,7 @@
 #include "SceneManager.h"
 
 #include "../Object/Map/Map.h"
+#include "../Object/Player/PlayerManager.h"
 #include "../Object/Player/Player.h"
 #include "../Object/Shot/ShotManager.h"
 #include "../Object/Shot/ShotBase.h"
@@ -15,7 +16,7 @@
 
 SceneManager::SceneManager():
 	m_pMap(nullptr),
-	m_pPlayer(nullptr),
+	m_pPlayerManager(nullptr),
 	m_pEnemyManager(nullptr),
 	m_pShotManager(nullptr),
 	m_pItemManager(nullptr)
@@ -29,62 +30,42 @@ SceneManager::~SceneManager()
 void SceneManager::Init()
 {
 	// インスタンスの生成
-	m_pMap          = new Map();
-	m_pPlayer       = new Player();
-	m_pEnemyManager = new EnemyManager();
-	m_pShotManager  = new ShotManager();
-	m_pItemManager  = new ItemManager();
-
-	// 初期化
-	m_pMap->Init();
-	m_pPlayer->Init();
-	m_pEnemyManager->Init();
-	m_pShotManager->Init();
+	m_pMap           = new Map();
+	m_pPlayerManager = new PlayerManager();
+	m_pEnemyManager  = new EnemyManager();
+	m_pShotManager   = new ShotManager();
+	m_pItemManager   = new ItemManager();
 }
 
 void SceneManager::End()
 {
 	// 解放処理
-	m_pMap->End();
-	m_pPlayer->End();
-	m_pEnemyManager->End();
-	m_pShotManager->End();
-	m_pItemManager->End();
-
 	delete m_pMap;
-	delete m_pPlayer;
+	delete m_pPlayerManager;
 	delete m_pEnemyManager;
 	delete m_pShotManager;
 	delete m_pItemManager;
 
-	m_pMap          = nullptr;
-	m_pPlayer       = nullptr;
-	m_pEnemyManager = nullptr;
-	m_pShotManager  = nullptr;
-	m_pItemManager = nullptr;
+	m_pMap           = nullptr;
+	m_pPlayerManager = nullptr;
+	m_pEnemyManager  = nullptr;
+	m_pShotManager   = nullptr;
+	m_pItemManager   = nullptr;
 }
 
 void SceneManager::Update()
 {
 	// 更新処理
 	m_pMap->Update();
-	m_pPlayer->Update();
+	m_pPlayerManager->Update();
 	m_pEnemyManager->Update();
 	m_pShotManager->Update();
-
-	// アイテムマネージャーに位置座標を渡す
-	m_pItemManager->SetPos(m_pPlayer->GetPos());
 	m_pItemManager->Update();
 
-	// 1つ以上の弾を発射していた場合弾を生成
-	if (m_pPlayer->GetShootingNum() >= 1)
-	{
-	//	m_pShotManager->CreateShotNormal(m_pPlayer->GetPos());
-		m_pShotManager->CreateShotMissile(m_pPlayer->GetPos());
-	//	m_pShotManager->CreateShotRocket(m_pPlayer->GetPos());
-	}
-
-	// ショットマネージャーからショットリストを取得
+	// プレイヤーマネージャーからプレイヤーを取得
+	std::list<Player*>& players = m_pPlayerManager->GetPlayerData();
+	
+	// ショットマネージャーからショットを取得
 	std::list<ShotBase*>& shots = m_pShotManager->GetShotData();
 
 	// エネミーマネージャーからエネミーを取得
@@ -92,9 +73,43 @@ void SceneManager::Update()
 
 	// アイテムマネージャーからアイテムを取得
 	std::list<ItemBase*>& items = m_pItemManager->GetItemData();
-	
-	// プレイヤーの判定座標
-	const Rect player = m_pPlayer->GetCollData();
+
+	// プレイヤー
+	for (auto& player : players)
+	{
+		// 1つ以上の弾を発射していた場合弾を生成
+		if (player->GetShootingNum() >= 1)
+		{
+			//	m_pShotManager->CreateShotNormal(m_pPlayer->GetPos());
+			shots->CreateShotMissile(player->GetPos());
+			//	m_pShotManager->CreateShotRocket(m_pPlayer->GetPos());
+		}
+
+		// プレイヤーの判定座標
+		const Rect playerRectData = player->GetCollData();
+
+		// プレイヤーとエネミーの判定
+		for (auto& enemy : enemies)
+		{
+			if (Collision2D::CheckRect(playerRectData, enemy->GetCollData()))
+			{
+			}
+		}
+
+		// プレイヤーとアイテム
+		for (auto& item : items)
+		{
+			if (Collision2D::CheckRect(playerRectData, item->GetCollData()))
+			{
+				// アイテムに当たったことを確認
+				item->IsHitObject();
+
+				// アイテムにプレイヤー座標を渡す
+				item->SetPos(player->GetPos());
+			}
+		}
+
+	}
 
 	// 弾とエネミーの判定
 	for (auto& shot : shots)
@@ -102,7 +117,7 @@ void SceneManager::Update()
 		for (auto& enemy : enemies)
 		{
 			// 判定のチェックをする
-			if (Collision2D::CheckRect(shot->GetCollData(),enemy->GetCollData()))
+			if (Collision2D::CheckRect(shot->GetCollData(), enemy->GetCollData()))
 			{
 				// ダメージを与える
 				enemy->SetDamage(shot->GetDamage());
@@ -112,22 +127,7 @@ void SceneManager::Update()
 			}
 		}
 	}
-	// プレイヤーとエネミーの判定
-	for (auto& enemy : enemies)
-	{
-		if (Collision2D::CheckRect(player, enemy->GetCollData()))
-		{
-		}
-	}
-	// プレイヤーとアイテム
-	for (auto& item : items)
-	{
-		if (Collision2D::CheckRect(player, item->GetCollData()))
-		{
-			// アイテムに当たったことを確認
-			item->IsHitObject();
-		}
-	}	
+
 }
 
 void SceneManager::Draw()
@@ -137,5 +137,5 @@ void SceneManager::Draw()
 	m_pItemManager->Draw();
 	m_pShotManager->Draw();
 	m_pEnemyManager->Draw();
-	m_pPlayer->Draw();
+	m_pPlayerManager->Draw();
 }

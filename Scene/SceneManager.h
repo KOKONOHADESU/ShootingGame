@@ -1,6 +1,6 @@
 
 class Map;
-class Player;
+class PlayerManager;
 class EnemyManager;
 class ShotManager;
 class ItemManager;
@@ -18,8 +18,8 @@ private:
 
 	// マップ
 	Map* m_pMap;
-	// プレイヤー
-	Player* m_pPlayer;
+	// プレイヤー管理
+	PlayerManager* m_pPlayerManager;
 	// エネミー管理
 	EnemyManager* m_pEnemyManager;
 	// ショット管理

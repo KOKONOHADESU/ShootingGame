@@ -148,6 +148,7 @@
     <ClCompile Include="Object\Item\ItemBase.cpp" />
     <ClCompile Include="Object\Item\ItemWeaponMissile.cpp" />
     <ClCompile Include="Object\Shot\ShotRocket.cpp" />
+    <ClCompile Include="Object\Player\PlayerManager.cpp" />
     <ClCompile Include="Util\GraphicSprite.cpp" />
     <ClCompile Include="Object\Shot\ShotManager.cpp" />
     <ClCompile Include="Object\Shot\ShotBase.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="Object\Item\ItemManager.h" />
     <ClInclude Include="Object\Item\ItemBase.h" />
     <ClInclude Include="Object\Item\ItemWeaponMissile.h" />
+    <ClInclude Include="Object\Player\PlayerManager.h" />
     <ClInclude Include="Util\ItemType.h" />
     <ClInclude Include="Util\Item.h" />
     <ClInclude Include="Object\Shot\ShotRocket.h" />

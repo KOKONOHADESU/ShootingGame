@@ -22,10 +22,18 @@ Map::Map()
 		m_bgSize[i].x = 0.0f;
 		m_bgSize[i].y = 0.0f;
 	}
+
+	// ƒ}ƒbƒv‚Ì‰Šú‰»
+	Init();
 }
 
 Map::~Map()
 {
+	// ƒƒ‚ƒŠ‰ğ•ú
+	for (int i = 0; i < BGType::MAX; i++)
+	{
+		DeleteGraph(m_hBg[i]);
+	}
 }
 
 void Map::Init()
@@ -98,15 +106,6 @@ void Map::Init()
 	};
 	m_graphPos[BGType::SIDERIGHT].push_back(bgRightPos);
 	m_graphPos[BGType::SIDERIGHT].push_back(bgRightSecondPos);
-}
-
-void Map::End()
-{
-	// ƒƒ‚ƒŠ‰ğ•ú
-	for (int i = 0; i < BGType::MAX; i++)
-	{
-		DeleteGraph(m_hBg[i]);
-	}
 }
 
 void Map::Update()

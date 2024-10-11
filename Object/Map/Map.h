@@ -19,11 +19,10 @@ public:
 	Map();
 	~Map();
 
-	void Init();
-	void End();
 	void Update();
 	void Draw();
 private:
+	void Init();
 	void Scroll(BGType type , float speed);
 private:
 	// ”wŒi‰æ‘œƒnƒ“ƒhƒ‹

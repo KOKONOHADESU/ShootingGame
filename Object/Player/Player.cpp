@@ -39,23 +39,14 @@ Player::Player():
 	m_collRect({ 0.0f,0.0f ,0.0f,0.0f }),
 	m_shootingNum(0)
 {
-}
-
-Player::~Player()
-{
-}
-
-void Player::Init()
-{
 	// メモリ確保
 	m_hGraph = LoadGraph("Data/Image/Player/Player1.png");
 
 	// 判定用位置座標更新
 	CollRectUpdate();
-
 }
 
-void Player::End()
+Player::~Player()
 {
 	// メモリ解放
 	DeleteGraph(m_hGraph);

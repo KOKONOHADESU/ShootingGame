@@ -30,14 +30,6 @@ namespace
 EnemyManager::EnemyManager():
 	m_normalEnemyFrameSpawnCount(0)
 {
-}
-
-EnemyManager::~EnemyManager()
-{
-}
-
-void EnemyManager::Init()
-{
 	// 画像タイプを指定
 	GraphicSprite::InitType(m_handle, EnemyType::MAX);
 	// 画像タイプ別画像分割数を指定
@@ -49,7 +41,7 @@ void EnemyManager::Init()
 	GraphicSprite::InitGraphic(m_hDead, 0, kEnemyDeadPath, kEnemyDeadGrapicNumX, kEnemyDeadGrapicNumY);
 }
 
-void EnemyManager::End()
+EnemyManager::~EnemyManager()
 {
 	// 解放処理
 	for (auto it = m_pEnemy.begin(); it != m_pEnemy.end(); ++it)

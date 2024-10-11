@@ -43,10 +43,6 @@ ItemManager::ItemManager()
 
 ItemManager::~ItemManager()
 {
-}
-
-void ItemManager::End()
-{
 	// ‰ğ•úˆ—
 	for (auto it = m_pItem.begin(); it != m_pItem.end(); ++it)
 	{

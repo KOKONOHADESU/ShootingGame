@@ -10,12 +10,11 @@ public:
 	Player();
 	~Player();
 
-	void Init();
-	void End();
 	void Update();
 	void Draw();
-public:
 
+public:
+	// 座標を渡す
 	Vec2 GetPos()const;
 
 	// 四角形用判定データ
@@ -23,7 +22,6 @@ public:
 
 	// 発射する数
 	int GetShootingNum()const;
-
 private:
 	// 入力
 	void Input();
@@ -31,6 +29,7 @@ private:
 	void OutSide();
 	// 判定用座標を更新する
 	void CollRectUpdate();
+
 private:
 	// 画像ハンドル
 	int m_hGraph;
